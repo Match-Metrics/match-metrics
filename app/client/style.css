@@ -10,9 +10,17 @@
 /* Change bootstrap variable values.
  See https://getbootstrap.com/docs/5.2/customize/css-variables/
  */
-body {
-  --bs-light-rgb: var(--matr-navbar-bg-rgb);
+#landing-page {
+  background-image: url("/images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
+
+/*body {*/
+/*  --bs-light-rgb: var(--matr-navbar-bg-rgb);*/
+/*  background-color: ivory;*/
+/*}*/
 
 /* Set the alert background on the signin and signup pages. */
 #signin-page .alert-light, #signup-page .alert-light {
