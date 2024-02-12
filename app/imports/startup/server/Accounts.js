@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { check } from 'meteor/check';
 
 /* eslint-disable no-console */
 
@@ -34,16 +35,3 @@ if (Meteor.users.find().count() === 0) {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
 }
-
-Meteor.methods({
-  'users.assignRole'(userId, role) {
-    // check(userId, String);
-    // check(role, String);
-
-    if (!this.userId || !Roles.userIsInRole(this.userId, ['admin'])) {
-      throw new Meteor.Error('not-authorized', 'You must be an admin to assign roles.');
-    }
-
-    Roles.addUsersToRoles(userId, role);
-  },
-});

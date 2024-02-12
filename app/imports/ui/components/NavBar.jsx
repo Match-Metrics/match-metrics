@@ -21,13 +21,20 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
+            {/* any logged in user */}
             {currentUser ? ([
-              <Nav.Link id="add-stuff-nav" as={NavLink} to="/add" key="add">Performance Analysis</Nav.Link>,
-              <Nav.Link id="list-stuff-nav" as={NavLink} to="/list" key="list">Profile settings</Nav.Link>,
+              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
             ]) : ''}
+            { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-              <Nav.Link id="list-stuff-admin-nav" as={NavLink} to="/admin" key="admin">Admin</Nav.Link>
+              <Nav.Link id="admin-dashboard-nav" as={NavLink} to="/admin-dashboard" key="admin-dashboard">Admin Dashboard</Nav.Link>
             ) : ''}
+            { /* Manager only */ }
+            {Roles.userIsInRole(Meteor.userId(), 'manager') ? ([
+              <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager</Nav.Link>,
+              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager</Nav.Link>,
+              <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Manager</Nav.Link>,
+            ]) : ''}
             {/* Display when not logged in */}
             <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,
           </Nav>
