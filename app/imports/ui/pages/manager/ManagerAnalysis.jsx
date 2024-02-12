@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 
 /* Enhanced landing page component */
-const Landing = () => (
+const ManagerAnalysis = () => (
   <Container id="landing-page" fluid className="p-5">
     {/* Hero Section */}
     <Row className="align-items-center text-center mb-5">
@@ -56,4 +56,4 @@ const Landing = () => (
   </Container>
 );
 
-export default Landing;
+export default ManagerAnalysis;

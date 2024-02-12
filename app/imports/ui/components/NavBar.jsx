@@ -28,7 +28,8 @@ const NavBar = () => {
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
               <Nav.Link id="list-stuff-admin-nav" as={NavLink} to="/admin" key="admin">Admin</Nav.Link>
             ) : ''}
-            <Nav.Link id="add-stuff-nav" as={NavLink} to="/add" key="add">Support Page</Nav.Link>,
+            {/* Display when not logged in */}
+            <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,
           </Nav>
           <Nav className="justify-content-end">
             {currentUser === '' ? (

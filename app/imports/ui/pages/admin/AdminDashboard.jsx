@@ -2,13 +2,13 @@ import React from 'react';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 
 /* Enhanced landing page component */
-const Landing = () => (
+const AdminDashboard = () => (
   <Container id="landing-page" fluid className="p-5">
     {/* Hero Section */}
     <Row className="align-items-center text-center mb-5">
       <Col className="section-padding">
         <div className="text-background">
-          <h1 className="high-contrast-text text-shadow">Welcome to Match Metrics</h1>
+          <h1 className="high-contrast-text text-shadow">Admin Dashboard</h1>
           <p className="high-contrast-text">Your online platform for managing, supporting, and evaluating your soccer team.</p>
         </div>
       </Col>
@@ -19,7 +19,7 @@ const Landing = () => (
       <Col xs={12} md={4}>
         <div className="text-background">
           <h2 className="high-contrast-text text-shadow">Plan Schedules</h2>
-          <p className="high-contrast-text">Easily plan and manage your team's schedules, from games to practice sessions.</p>
+          <p className="high-contrast-text">Easily plan and manage your teams schedules, from games to practice sessions.</p>
         </div>
       </Col>
       <Col xs={12} md={4}>
@@ -56,4 +56,4 @@ const Landing = () => (
   </Container>
 );
 
-export default Landing;
+export default AdminDashboard;

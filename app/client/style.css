@@ -12,9 +12,37 @@
  */
 #landing-page {
   background-image: url("/images/background.jpg");
-  background-size: cover;
+  background-size: auto;
   background-position: center;
-  min-height: 100vh;
+  /*min-height: 1080px;*/
+  max-width: 1920px;
+  border: black;
+  border-radius: 1px;
+  box-shadow: black 0px 0px 10px 0px;
+  margin: 20px auto;
+}
+.text-shadow {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Semi-transparent Background for Text Blocks */
+.text-background {
+  background-color: rgba(15, 15, 15, 0.5); /* Light background, adjust opacity as needed */
+  border-radius: 15px;
+  padding: 20px;
+  display: inline-block; /* or 'block' depending on your layout */
+}
+
+/* High Contrast Text */
+.high-contrast-text {
+  color: #FFFFFF; /* White text, adjust color based on your background image */
+
+}
+
+/* Optional: Add a general class for sections to improve layout and readability */
+.section-padding {
+  padding: 20px;
+  margin-bottom: 30px;
 }
 
 /*body {*/
