@@ -2,9 +2,9 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import { Stuffs } from '../../api/stuff/Stuff';
-import StuffItemAdmin from '../components/StuffItemAdmin';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { Stuffs } from '../../../api/stuff/Stuff';
+import StuffItemAdmin from '../../components/StuffItemAdmin';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 /* Renders a table containing all of the Stuff documents. Use <StuffItemAdmin> to render each row. */
 const ListStuffAdmin = () => {
