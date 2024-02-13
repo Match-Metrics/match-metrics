@@ -6,17 +6,31 @@ import { Roles } from 'meteor/alanning:roles';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
+import ListStuff from '../pages/template/ListStuff';
+import ListStuffAdmin from '../pages/template/ListStuffAdmin';
+import AddStuff from '../pages/template/AddStuff';
+import EditStuff from '../pages/template/EditStuff';
 import NotFound from '../pages/NotFound';
-import SignUp from '../pages/SignUp';
-import SignOut from '../pages/SignOut';
-import NavBar from '../components/NavBar';
-import SignIn from '../pages/SignIn';
+import SignUp from '../pages/all/SignUp';
+import SignOut from '../pages/all/SignOut';
 import CalendarPage from '../pages/CalendarPage';
-import NotAuthorized from '../pages/NotAuthorized';
-import LoadingSpinner from '../components/LoadingSpinner';
 import AddEvent from '../pages/AddEvent';
 import AddPlayer from '../pages/AddPlayer';
 import AddTeam from '../pages/AddTeam';
+import SignIn from '../pages/all/SignIn';
+import NotAuthorized from '../pages/NotAuthorized';
+import LoadingSpinner from '../components/LoadingSpinner';
+import Support from '../pages/all/Support';
+import UserAnalysis from '../pages/user/UserAnalysis';
+import UserDashboard from '../pages/user/UserDashboard';
+import UserSettings from '../pages/user/UserSettings';
+import ManagerAnalysis from '../pages/manager/ManagerAnalysis';
+import ManagerDashboard from '../pages/manager/ManagerDashboard';
+import ManagerSettings from '../pages/manager/ManagerSettings';
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import TeamManagement from '../pages/manager/TeamManagement';
+import Communication from '../pages/team/Communication';
+import NavBar from '../components/NavBar';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -32,15 +46,36 @@ const App = () => {
       <div className="d-flex flex-column min-vh-100">
         <NavBar />
         <Routes>
+          {/* No login required */}
           <Route exact path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
+          <Route path="/support" element={<Support />} />
+          {/* Login required */}
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
           <Route path="/addevent" element={<ProtectedRoute><AddEvent /></ProtectedRoute>} />
           <Route path="/addplayer" element={<ProtectedRoute><AddPlayer /></ProtectedRoute>} />
           <Route path="/addteam" element={<ProtectedRoute><AddTeam /></ProtectedRoute>} />
+
+          <Route path="/communication" element={<ProtectedRoute><Communication /></ProtectedRoute>} />
+          {/* User Login required */}
+          <Route path="/user-analysis" element={<ProtectedRoute><UserAnalysis /></ProtectedRoute>} />
+          <Route path="/user-dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+          <Route path="/user-settings" element={<ProtectedRoute><UserSettings /></ProtectedRoute>} />
+          {/* Manager Login required */}
+          <Route path="/manager-analysis" element={<ProtectedRoute><ManagerAnalysis /></ProtectedRoute>} />
+          <Route path="/manager-dashboard" element={<ProtectedRoute><ManagerDashboard /></ProtectedRoute>} />
+          <Route path="/manager-settings" element={<ProtectedRoute><ManagerSettings /></ProtectedRoute>} />
+          <Route path="/team-management" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
+          {/* Admin Login required */}
+          <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
+          {/* template */}
+          <Route path="/list" element={<ProtectedRoute><ListStuff /></ProtectedRoute>} />
+          <Route path="/add" element={<ProtectedRoute><AddStuff /></ProtectedRoute>} />
+          <Route path="/edit/:_id" element={<ProtectedRoute><EditStuff /></ProtectedRoute>} />
+          <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListStuffAdmin /></AdminProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

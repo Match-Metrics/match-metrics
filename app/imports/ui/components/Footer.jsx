@@ -6,7 +6,7 @@ const Footer = () => (
   <footer className="mt-auto py-3 bg-light">
     <Container>
       <Col className="text-center">
-        Department of Information and Computer Sciences
+        Match Metrics
         {' '}
         <br />
         University of Hawaii
@@ -14,9 +14,8 @@ const Footer = () => (
         Honolulu, HI 96822
         {' '}
         <br />
-        <a href="http://ics-software-engineering.github.io/meteor-application-template-react">
-          Template Home
-          Page
+        <a href="https://github.com/Match-Metrics">
+          Project Home Page
         </a>
       </Col>
     </Container>

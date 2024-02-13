@@ -13,23 +13,34 @@ const NavBar = () => {
   }), []);
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={NavLink} to="/">
-          <h2>MatchMetrics</h2>
+          <h2>Match Metrics</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
+            {/* any logged in user */}
             {currentUser ? ([
               <Nav.Link id="add-event-nav" as={NavLink} to="/addevent">Add Event</Nav.Link>,
               <Nav.Link id="add-player-nav" as={NavLink} to="/addplayer">Add Player</Nav.Link>,
               <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
               <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
+              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
             ]) : ''}
+            { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-              <Nav.Link id="list-stuff-admin-nav" as={NavLink} to="/admin" key="admin">Admin</Nav.Link>
+              <Nav.Link id="admin-dashboard-nav" as={NavLink} to="/admin-dashboard" key="admin-dashboard">Admin Dashboard</Nav.Link>
             ) : ''}
+            { /* Manager only */ }
+            {Roles.userIsInRole(Meteor.userId(), 'manager') ? ([
+              <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager</Nav.Link>,
+              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager</Nav.Link>,
+              <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Manager</Nav.Link>,
+            ]) : ''}
+            {/* Display when not logged in */}
+            <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,
           </Nav>
           <Nav className="justify-content-end">
             {currentUser === '' ? (
