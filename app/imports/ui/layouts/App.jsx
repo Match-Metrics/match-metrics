@@ -6,14 +6,10 @@ import { Roles } from 'meteor/alanning:roles';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListStuff from '../pages/template/ListStuff';
-import ListStuffAdmin from '../pages/template/ListStuffAdmin';
-import AddStuff from '../pages/template/AddStuff';
-import EditStuff from '../pages/template/EditStuff';
 import NotFound from '../pages/NotFound';
 import SignUp from '../pages/all/SignUp';
 import SignOut from '../pages/all/SignOut';
-import CalendarPage from '../pages/CalendarPage';
+import CalendarPage from '../pages/team/CalendarPage';
 import AddEvent from '../pages/AddEvent';
 import AddPlayer from '../pages/AddPlayer';
 import AddTeam from '../pages/AddTeam';
@@ -72,10 +68,6 @@ const App = () => {
           {/* Admin Login required */}
           <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
           {/* template */}
-          <Route path="/list" element={<ProtectedRoute><ListStuff /></ProtectedRoute>} />
-          <Route path="/add" element={<ProtectedRoute><AddStuff /></ProtectedRoute>} />
-          <Route path="/edit/:_id" element={<ProtectedRoute><EditStuff /></ProtectedRoute>} />
-          <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListStuffAdmin /></AdminProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
