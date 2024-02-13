@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import cloudinary from 'cloudinary';
 
 cloudinary.config({
-  cloud_name: 'djoahlpoc',
-  api_key: '513547556632438',
-  api_secret: 'Fp6cEWLBdbmAfrQlshHfA-jOgXs',
+  cloud_name: 'YOUR-KEY-HERE',
+  api_key: 'YOUR-KEY-HERE',
+  api_secret: 'YOUR-KEY-HERE',
 });
 
 Meteor.methods({
@@ -16,6 +16,7 @@ Meteor.methods({
       const result = await cloudinary.v2.uploader.upload(imageData, { resource_type: 'auto' });
       return result.secure_url;
     } catch (error) {
+      console.log(error);
       throw new Meteor.Error('cloudinary-upload-failed', 'Error uploading to Cloudinary');
     }
   },

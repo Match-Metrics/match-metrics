@@ -54,11 +54,13 @@ class PlayersCollection {
         max: 25,
       },
       height: {
-        type: Number, // CM (centimeters)
+        // CM (centimeters)
+        type: Number,
         optional: true,
       },
       weight: {
-        type: Number, // LB (pounds)
+        // LB (pounds)
+        type: Number,
         optional: true,
       },
       skills: {

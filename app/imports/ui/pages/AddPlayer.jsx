@@ -67,8 +67,8 @@ const AddPlayer = () => {
                   <DateField inputClassName="border-dark" name="dateOfBirth" />
                   <SelectField inputClassName="border-dark" name="position" />
                   <TextField inputClassName="border-dark" name="team" />
-                  <NumField inputClassName="border-dark" name="height" />
-                  <NumField inputClassName="border-dark" name="weight" />
+                  <NumField inputClassName="border-dark" name="height (CM)" />
+                  <NumField inputClassName="border-dark" name="weight (LB)" />
                   <TextField inputClassName="border-dark" name="skills" />
                   <TextField inputClassName="border-dark" name="achievements" />
                   <div className="mb-3">
