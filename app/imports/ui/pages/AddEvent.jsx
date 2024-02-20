@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { AutoForm, DateField, ErrorsField, HiddenField, LongTextField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -64,8 +64,11 @@ const AddEvent = () => {
     <div>
       <Container className="py-3">
         <Row className="justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
-          <Col xs={5}>
+          <Col xs={6}>
             <Col className="text-center"><h2>Add Event</h2></Col>
+            <Col>
+              <Button variant="link" size="sm" onClick={handleAddEvent}>Back to Calendar</Button>
+            </Col>
             <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data)}>
               <Card style={{ backgroundColor: 'white', border: 'none' }}>
                 <Card.Body>

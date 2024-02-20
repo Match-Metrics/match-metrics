@@ -23,7 +23,6 @@ const NavBar = () => {
           <Nav className="me-auto justify-content-start">
             {/* any logged in user */}
             {currentUser ? ([
-              <Nav.Link id="add-event-nav" as={NavLink} to="/addevent">Add Event</Nav.Link>,
               <Nav.Link id="add-player-nav" as={NavLink} to="/addplayer">Add Player</Nav.Link>,
               <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
               <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
