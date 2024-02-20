@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -7,28 +8,15 @@ import { Container } from 'react-bootstrap';
 
 const CalendarPage = () => {
   const calendarRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleAddEvent = () => {
-    const dateStr = prompt('Enter a date in YYYY-MM-DD');
-    const date = new Date(`${dateStr}T00:00:00`);
-
-    if (!Number.isNaN(date.valueOf())) {
-      const calendarApi = calendarRef.current.getApi();
-
-      calendarApi.addEvent({
-        title: 'New Event',
-        start: date,
-        allDay: true,
-      });
-      alert('Adding event to calendar...');
-    } else {
-      alert('Invalid date');
-    }
+    navigate('/addevent');
   };
 
   return (
     <div>
-      <Container>
+      <Container id="calendar-page">
         <FullCalendar
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -36,8 +24,11 @@ const CalendarPage = () => {
           height="90vh"
           selectable="true"
           editable="true"
+          navLinks="true"
           headerToolbar={{
-            center: 'addEventButton',
+            start: 'addEventButton',
+            center: 'title',
+            end: 'today dayGridMonth,timeGridWeek,timeGridDay prev,next',
           }}
           customButtons={{
             addEventButton: {

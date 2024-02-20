@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { AutoForm, DateField, ErrorsField, HiddenField, LongTextField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
@@ -13,6 +14,11 @@ const AddEvent = () => {
   const [imageFile, setImageFile] = useState(null);
   let fRef = null;
   const user = Meteor.user();
+  const navigate = useNavigate();
+
+  const handleAddEvent = () => {
+    navigate('/calendar');
+  };
 
   const handleImageChange = (file) => {
     setImageFile(file);
@@ -30,6 +36,7 @@ const AddEvent = () => {
           if (fRef) {
             fRef.reset();
           }
+          handleAddEvent();
         }
       });
     };
