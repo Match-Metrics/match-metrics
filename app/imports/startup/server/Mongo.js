@@ -28,7 +28,7 @@ if (Teams.collection.find().count() === 0) {
 }
 
 const addEvent = (event) => {
-  console.log(`  Adding: ${event.name} (${event.owner})`);
+  console.log(`  Adding: ${event.title} (${event.owner})`);
   Events.collection.insert(event);
 };
 

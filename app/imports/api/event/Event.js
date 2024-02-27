@@ -24,8 +24,18 @@ class EventsCollection {
         max: 1000,
       },
       location: {
-        type: String,
-        max: 100,
+        type: Object,
+        optional: true,
+      },
+      'location.lat': {
+        type: Number,
+        min: -90,
+        max: 90,
+      },
+      'location.lng': {
+        type: Number,
+        min: -180,
+        max: 180,
       },
       startTime: {
         type: Date,
