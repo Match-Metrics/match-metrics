@@ -111,5 +111,141 @@
   ],
 
   "defaultEvents": [
+    {
+      "owner": "Alex Johnson",
+      "createdAt": "2024-02-01T08:00:00Z",
+      "title": "City Strikers vs Harbor Guardians",
+      "description": "A thrilling match between two top teams.",
+      "location": {
+        "lat": 21.297472,
+        "lng": -157.8163156
+      },
+      "startTime": "2024-02-28T10:00:00Z",
+      "endTime": "2024-02-28T12:00:00Z",
+      "teams1": "City Strikers",
+      "teams2": "Harbor Guardians",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Michael Turner",
+      "createdAt": "2024-02-05T10:45:00Z",
+      "title": "Mountain Rangers vs Coastal Aces",
+      "description": "High altitude experts vs fast-paced attackers.",
+      "location": {
+        "lat": 21.461551,
+        "lng": -158.0099655
+      },
+      "startTime": "2024-03-01T11:00:00Z",
+      "endTime": "2024-03-01T13:00:00Z",
+      "teams1": "Mountain Rangers",
+      "teams2": "Coastal Aces",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Rebecca Moore",
+      "createdAt": "2024-02-03T20:55:10.070903",
+      "title": "Golden Gate Kickers vs Desert Dynamos",
+      "description": "Strategic plays meet quick counterattacks.",
+      "location": {
+        "lat": 21.2973981,
+        "lng": -157.846324
+      },
+      "startTime": "2024-03-02T09:30:00Z",
+      "endTime": "2024-03-02T11:30:00Z",
+      "teams1": "Golden Gate Kickers",
+      "teams2": "Desert Dynamos",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Sophia Wilson",
+      "createdAt": "2024-02-25T20:55:10.070949",
+      "title": "Desert Dynamos vs Space City Stars",
+      "description": "A dynamic clash of tactics and skills.",
+      "location": {
+        "lat": 21.4505,
+        "lng": -157.7681
+      },
+      "startTime": "2024-03-03T14:00:00Z",
+      "endTime": "2024-03-03T16:00:00Z",
+      "teams1": "Desert Dynamos",
+      "teams2": "Space City Stars",
+      "eventType": "Match"
+    },
+    {
+      "owner": "James Smith",
+      "createdAt": "2024-01-27T20:55:10.070969",
+      "title": "Space City Stars vs Windy City FC",
+      "description": "A battle of skilled forwards and young talents.",
+      "location": {
+        "lat": 20.951467,
+        "lng": -156.687081
+      },
+      "startTime": "2024-03-04T12:00:00Z",
+      "endTime": "2024-03-04T14:00:00Z",
+      "teams1": "Space City Stars",
+      "teams2": "Windy City FC",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Kingston High",
+      "createdAt": "2024-02-05T20:55:10.071000",
+      "title": "Windy City FC vs City Strikers",
+      "description": "Young talents face off against offensive giants.",
+      "location": { "lat": 21.4513, "lng": -158.0153 },
+      "startTime": "2024-03-05T15:00:00Z",
+      "endTime": "2024-03-05T17:00:00Z",
+      "teams1": "Windy City FC",
+      "teams2": "City Strikers",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Olivia Davis",
+      "createdAt": "2024-01-22T20:55:10.071017",
+      "title": "Harbor Guardians vs Golden Gate Kickers",
+      "description": "Defensive masters meet strategic players.",
+      "location":  { "lat": 21.6395, "lng": -158.0572 },
+      "startTime": "2024-03-06T10:00:00Z",
+      "endTime": "2024-03-06T12:00:00Z",
+      "teams1": "Harbor Guardians",
+      "teams2": "Golden Gate Kickers",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Linda Kim",
+      "createdAt": "2024-01-28T07:20:00Z",
+      "title": "Coastal Aces vs Mountain Rangers",
+      "description": "Fast attacks against high-altitude endurance.",
+      "location": {
+        "lat": 21.4505,
+        "lng": -157.7681
+      },
+      "startTime": "2024-03-07T16:30:00Z",
+      "endTime": "2024-03-07T18:30:00Z",
+      "teams1": "Coastal Aces",
+      "teams2": "Mountain Rangers",
+      "eventType": "Match"
+    },
+    {
+      "owner": "Samantha Wallace",
+      "createdAt": "2024-02-02T09:30:00Z",
+      "title": "Harbor Guardians Training Session",
+      "description": "Intense training session focusing on defense and strategy.",
+      "location": { "lat": 21.4449, "lng": -158.1901 },
+      "startTime": "2024-03-08T07:00:00Z",
+      "endTime": "2024-03-08T09:00:00Z",
+      "teams1": "Harbor Guardians",
+      "eventType": "Training"
+    },
+    {
+      "owner": "Michael Turner",
+      "createdAt": "2024-02-05T10:45:00Z",
+      "title": "Mountain Rangers Strategy Meeting",
+      "description": "Meeting to discuss upcoming matches and team strategy.",
+      "location": { "lat": 21.3331, "lng": -157.8025 },
+      "startTime": "2024-03-09T18:00:00Z",
+      "endTime": "2024-03-09T20:00:00Z",
+      "teams1": "Mountain Rangers",
+      "eventType": "Training"
+    }
   ]
 }

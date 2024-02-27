@@ -19,7 +19,7 @@ const TeamProfile = ({ team }) => {
   return (
     <Card className="h-100" style={{ backgroundColor: 'white', border: 'none' }}>
       <Card.Header style={{ paddingBottom: '1em', backgroundColor: 'white', border: 'none' }}>
-        <Image src={team.picture} width={275} height={200} style={{ borderRadius: '50%' }} />
+        <Image src={team.picture} width={300} height={200} style={{ borderRadius: '50%' }} />
         <Card.Title style={{ fontWeight: 'bold', paddingTop: '10px' }}>{team.name}</Card.Title>
         <Card.Subtitle style={{ color: 'gray' }}>Win/Loss: {team.win}/{team.loss}</Card.Subtitle>
       </Card.Header>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
@@ -12,9 +12,34 @@ const bridge = new SimpleSchema2Bridge(Events.schema);
 
 const AddEvent = () => {
   const [imageFile, setImageFile] = useState(null);
+  const [location, setLocation] = useState(null); // Added for location handling
   let fRef = null;
   const user = Meteor.user();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadGooglePlacesScript = document.createElement('script');
+    loadGooglePlacesScript.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR-KEY-HERE&libraries=places';
+    document.body.appendChild(loadGooglePlacesScript);
+
+    loadGooglePlacesScript.onload = () => {
+      // eslint-disable-next-line no-use-before-define
+      initializeAutocomplete();
+    };
+  }, []);
+
+  const initializeAutocomplete = () => {
+    const input = document.getElementById('event-location');
+    // eslint-disable-next-line no-undef
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      setLocation({
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      });
+    });
+  };
 
   const handleAddEvent = () => {
     navigate('/calendar');
@@ -28,7 +53,7 @@ const AddEvent = () => {
     const { image, ...eventData } = data;
     // eslint-disable-next-line no-shadow
     const insertEvent = (eventData) => {
-      Events.collection.insert({ ...eventData }, (error) => {
+      Events.collection.insert({ ...eventData, location }, (error) => {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
@@ -74,7 +99,10 @@ const AddEvent = () => {
                 <Card.Body>
                   <TextField inputClassName="border-dark" name="title" />
                   <LongTextField inputClassName="border-dark" name="description" />
-                  <TextField inputClassName="border-dark" name="location" />
+                  {/* Updated TextField for location */}
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                  <label htmlFor="event-location">Location</label>
+                  <input type="text" id="event-location" className="form-control border-dark" />
                   <DateField inputClassName="border-dark" name="startTime" />
                   <DateField inputClassName="border-dark" name="endTime" />
                   <TextField inputClassName="border-dark" name="teams1" />
