@@ -34,7 +34,7 @@
       "name": "Mountain Rangers",
       "win": 12,
       "loss": 10,
-      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODM0MDQ0Mjg4/aberdeen-0425jpg.webp",
+      "picture": "https://1000logos.net/wp-content/uploads/2016/10/AC-Milan-Logo-768x432.png",
       "details": "Located in Denver, Mountain Rangers excel in high-altitude matches.",
       "achievements": "Semi-Finalists in the 2023 National Soccer Tournament"
     },
@@ -44,9 +44,69 @@
       "name": "Coastal Aces",
       "win": 20,
       "loss": 2,
-      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODMzNTIwMDAw/atletico-0425jpg.webp",
+      "picture": "https://1000logos.net/wp-content/uploads/2018/07/AFC-Bournemouth-Logo-768x432.png",
       "details": "Based in Los Angeles, Coastal Aces dominate with their fast-paced attacks.",
       "achievements": "2023 California State Soccer League Winners"
+    },
+    {
+      "owner": "Rebecca Moore",
+      "createdAt": "2024-02-03T20:55:10.070903",
+      "name": "Golden Gate Kickers",
+      "win": 20,
+      "loss": 8,
+      "picture": "https://1000logos.net/wp-content/uploads/2022/03/Anderlecht-Logo-768x432.png",
+      "details": "Based in San Francisco, Prides themselves on strategic plays and teamwork.",
+      "achievements": "Qualified for the 2023 National Playoffs"
+    },
+    {
+      "owner": "Sophia Wilson",
+      "createdAt": "2024-02-25T20:55:10.070949",
+      "name": "Desert Dynamos",
+      "win": 10,
+      "loss": 6,
+      "picture": "https://1000logos.net/wp-content/uploads/2022/01/Angers-logo-768x461.png",
+      "details": "Based in Las Vegas, Renowned for their quick counterattacks and solid midfield.",
+      "achievements": "Winner of the 2023 City League"
+    },
+    {
+      "owner": "James Smith",
+      "createdAt": "2024-01-27T20:55:10.070969",
+      "name": "Space City Stars",
+      "win": 17,
+      "loss": 4,
+      "picture": "https://1000logos.net/wp-content/uploads/2020/09/APOEL-logo-640x400.png",
+      "details": "Based in Boston, Boasts a highly skilled set of forwards.",
+      "achievements": "Finalists in the 2023 State Soccer Cup"
+    },
+    {
+      "owner": "James Smith",
+      "createdAt": "2024-01-15T20:55:10.070984",
+      "name": "Desert Dynamos",
+      "win": 17,
+      "loss": 9,
+      "picture": "https://1000logos.net/wp-content/uploads/2016/10/Arsenal-Logo-640x400.png",
+      "details": "Based in Houston, Known for their relentless energy and spirit.",
+      "achievements": "Finalists in the 2023 State Soccer Cup"
+    },
+    {
+      "owner": "Olivia Davis",
+      "createdAt": "2024-02-05T20:55:10.071000",
+      "name": "Windy City FC",
+      "win": 11,
+      "loss": 7,
+      "picture": "https://1000logos.net/wp-content/uploads/2022/05/Aston-Villa-Logo-768x432.png",
+      "details": "Based in Las Vegas, Features a lineup of young, talented players.",
+      "achievements": "Holder of the 2023 Invitational Cup"
+    },
+    {
+      "owner": "Olivia Davis",
+      "createdAt": "2024-01-22T20:55:10.071017",
+      "name": "Space City Stars",
+      "win": 14,
+      "loss": 2,
+      "picture": "https://1000logos.net/wp-content/uploads/2018/06/Atalanta-Logo-768x432.png",
+      "details": "Based in Miami, Boasts a highly skilled set of forwards.",
+      "achievements": "Finalists in the 2023 State Soccer Cup"
     }
   ],
 
