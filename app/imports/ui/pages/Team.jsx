@@ -44,7 +44,7 @@ const TeamPage = () => {
             </Col>
             <Row xs={1} md={2} lg={profilesPerRow} className="g-5">
               {currentTeams.map((team) => (
-                <Col key={team.owner}>
+                <Col key={team._id}>
                   <TeamProfile team={team} />
                 </Col>
               ))}
