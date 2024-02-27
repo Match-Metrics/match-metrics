@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import * as Events from 'events';
 import { Players } from '../../api/player/Player';
 import { Teams } from '../../api/team/Team';
+import { Events } from '../../api/event/Event';
 
 Meteor.publish(Events.userPublicationName, function () {
   if (this.userId) {

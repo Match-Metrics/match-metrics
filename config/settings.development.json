@@ -8,6 +8,46 @@
   ],
 
   "defaultTeams": [
+    {
+      "owner": "Alex Johnson",
+      "createdAt": "2024-02-01T08:00:00Z",
+      "name": "City Strikers",
+      "win": 18,
+      "loss": 4,
+      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODMzNTIwMDAw/atletico-0425jpg.webp",
+      "details": "Based in New York, City Strikers have a strong offensive play.",
+      "achievements": "Winner of the 2023 Local Soccer League"
+    },
+    {
+      "owner": "Samantha Wallace",
+      "createdAt": "2024-02-02T09:30:00Z",
+      "name": "Harbor Guardians",
+      "win": 15,
+      "loss": 7,
+      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODM0MDQ0Mjg4/aberdeen-0425jpg.webp",
+      "details": "Based in Seattle, Harbor Guardians are known for their impenetrable defense.",
+      "achievements": "2023 Pacific Northwest Champions"
+    },
+    {
+      "owner": "Michael Turner",
+      "createdAt": "2024-02-05T10:45:00Z",
+      "name": "Mountain Rangers",
+      "win": 12,
+      "loss": 10,
+      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODM0MDQ0Mjg4/aberdeen-0425jpg.webp",
+      "details": "Located in Denver, Mountain Rangers excel in high-altitude matches.",
+      "achievements": "Semi-Finalists in the 2023 National Soccer Tournament"
+    },
+    {
+      "owner": "Linda Kim",
+      "createdAt": "2024-01-28T07:20:00Z",
+      "name": "Coastal Aces",
+      "win": 20,
+      "loss": 2,
+      "picture": "https://www.si.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTY4MTAyMzc4ODMzNTIwMDAw/atletico-0425jpg.webp",
+      "details": "Based in Los Angeles, Coastal Aces dominate with their fast-paced attacks.",
+      "achievements": "2023 California State Soccer League Winners"
+    }
   ],
 
   "defaultEvents": [

@@ -27,6 +27,7 @@ import AdminDashboard from '../pages/admin/AdminDashboard';
 import TeamManagement from '../pages/manager/TeamManagement';
 import Communication from '../pages/team/Communication';
 import NavBar from '../components/NavBar';
+import Team from '../pages/Team';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -54,7 +55,7 @@ const App = () => {
           <Route path="/addevent" element={<ProtectedRoute><AddEvent /></ProtectedRoute>} />
           <Route path="/addplayer" element={<ProtectedRoute><AddPlayer /></ProtectedRoute>} />
           <Route path="/addteam" element={<ProtectedRoute><AddTeam /></ProtectedRoute>} />
-
+          <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
           <Route path="/communication" element={<ProtectedRoute><Communication /></ProtectedRoute>} />
           {/* User Login required */}
           <Route path="/user-analysis" element={<ProtectedRoute><UserAnalysis /></ProtectedRoute>} />
