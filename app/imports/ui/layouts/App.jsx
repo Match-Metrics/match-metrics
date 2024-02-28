@@ -27,6 +27,7 @@ import AdminDashboard from '../pages/admin/AdminDashboard';
 import TeamManagement from '../pages/manager/TeamManagement';
 import Communication from '../pages/team/Communication';
 import NavBar from '../components/NavBar';
+import PlayerStatsPage from '../pages/all/PlayerStatsPage';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/support" element={<Support />} />
+          <Route exact path="/stats" element={<PlayerStatsPage />} />
           {/* Login required */}
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />

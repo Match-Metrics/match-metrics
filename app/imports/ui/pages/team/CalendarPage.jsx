@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Container } from 'react-bootstrap';
 
-const CalendarPage = () => {
+const CalendarPage = (players) => {
   const calendarRef = useRef(null);
   const navigate = useNavigate();
 
