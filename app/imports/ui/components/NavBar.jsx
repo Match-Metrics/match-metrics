@@ -29,6 +29,7 @@ const NavBar = () => {
               <Nav.Link id="mapsearch-nav" as={NavLink} to="/mapsearch">MapSearch</Nav.Link>,
               <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
               <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
+              <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
             ]) : ''}
             { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
