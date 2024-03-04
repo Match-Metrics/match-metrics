@@ -4,9 +4,10 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import { Container } from 'react-bootstrap';
 
-const CalendarPage = (players) => {
+const CalendarPage = () => {
   const calendarRef = useRef(null);
   const navigate = useNavigate();
 
@@ -19,12 +20,16 @@ const CalendarPage = (players) => {
       <Container id="calendar-page">
         <FullCalendar
           ref={calendarRef}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, googleCalendarPlugin]}
+          googleCalendarApiKey="API-KEY-HERE"
           intialView="dayGridMonth"
           height="90vh"
           selectable="true"
           editable="true"
           navLinks="true"
+          events={{
+            googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com',
+          }}
           headerToolbar={{
             start: 'addEventButton',
             center: 'title',

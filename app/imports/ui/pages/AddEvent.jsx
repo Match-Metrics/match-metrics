@@ -91,7 +91,7 @@ const AddEvent = () => {
         <Row className="justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
           <Col xs={6}>
             <Col className="text-center"><h2>Add Event</h2></Col>
-            <Col>
+            <Col className="text-center">
               <Button variant="link" size="sm" onClick={handleAddEvent}>Back to Calendar</Button>
             </Col>
             <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data)}>
