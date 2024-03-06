@@ -1,56 +1,69 @@
 import React from 'react';
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row, Button, Card } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 /* Enhanced landing page component */
 const ManagerDashboard = () => (
-  <Container id="landing-page" fluid className="p-5">
-    {/* Hero Section */}
+  <Container id="dashboard-page">
     <Row className="align-items-center text-center mb-5">
       <Col className="section-padding">
         <div className="text-background">
-          <h1 className="high-contrast-text text-shadow">Welcome to Match Metrics</h1>
-          <p className="high-contrast-text">Your online platform for managing, supporting, and evaluating your soccer team.</p>
+          <h1 className="high-contrast-text text-shadow">[Team Name] Dashboard</h1>
         </div>
       </Col>
     </Row>
-
-    {/* Features Section */}
-    <Row className="text-center mb-5">
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Plan Schedules</h2>
-          <p className="high-contrast-text">Easily plan and manage your team's schedules, from games to practice sessions.</p>
-        </div>
+    <Row>
+      <Col md={6} lg={4} className="mb-3">
+        <Card className="dashboard-card">
+          <Card.Body>
+            <Card.Title>Team Analysis</Card.Title>
+            <Card.Text>
+              View your team stats and review game footage.
+            </Card.Text>
+            <Button as={NavLink} to="/user-analysis" variant="primary" block>
+              Explore
+            </Button>
+          </Card.Body>
+        </Card>
       </Col>
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Analyze Performance</h2>
-          <p className="high-contrast-text">Get detailed insights into player metrics and game performances through video analysis.</p>
-        </div>
+      <Col md={6} lg={4} className="mb-3">
+        <Card className="dashboard-card">
+          <Card.Body>
+            <Card.Title>Team Management</Card.Title>
+            <Card.Text>
+              View and Manage your roster.
+            </Card.Text>
+            <Button as={NavLink} to="/team-management" variant="primary" block>
+              Manage
+            </Button>
+          </Card.Body>
+        </Card>
       </Col>
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Team Collaboration</h2>
-          <p className="high-contrast-text">Enhance team collaboration with easy-to-use communication tools and shared resources.</p>
-        </div>
+      <Col md={6} lg={4} className="mb-3">
+        <Card className="dashboard-card">
+          <Card.Body>
+            <Card.Title>Team Calendar</Card.Title>
+            <Card.Text>
+              View or edit your team's calendar.
+            </Card.Text>
+            <Button as={NavLink} to="/team-calendar" variant="primary" block>
+              Calendar
+            </Button>
+          </Card.Body>
+        </Card>
       </Col>
-    </Row>
-
-    {/* Testimonials Section */}
-    {/* <Row className="text-center mb-5"> */}
-    {/*  <Col xs={12}> */}
-    {/*    <h2>What Coaches Say</h2> */}
-    {/*    <blockquote className="blockquote"> */}
-    {/*      <p>"Soccer Manager has transformed the way we prepare for matches and analyze our performance."</p> */}
-    {/*      <footer className="blockquote-footer">Coach John Doe</footer> */}
-    {/*    </blockquote> */}
-    {/*  </Col> */}
-    {/* </Row> */}
-
-    {/* Call to Action Section */}
-    <Row className="text-center">
-      <Col xs={12}>
-        <Button variant="success" size="lg">Join Now and Elevate Your Team's Performance</Button>
+      <Col md={6} lg={4} className="mb-3">
+        <Card className="dashboard-card">
+          <Card.Body>
+            <Card.Title>Team Communication</Card.Title>
+            <Card.Text>
+              Keep in touch with your team and manage communications.
+            </Card.Text>
+            <Button as={NavLink} to="/communication" variant="primary" block>
+              Communicate
+            </Button>
+          </Card.Body>
+        </Card>
       </Col>
     </Row>
   </Container>

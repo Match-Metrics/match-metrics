@@ -23,13 +23,13 @@ const NavBar = () => {
           <Nav className="me-auto justify-content-start">
             {/* any logged in user */}
             {currentUser ? ([
-              <Nav.Link id="add-player-nav" as={NavLink} to="/addplayer">Add Player</Nav.Link>,
-              <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
-              <Nav.Link id="team-nav" as={NavLink} to="/team">Teams</Nav.Link>,
-              <Nav.Link id="mapsearch-nav" as={NavLink} to="/mapsearch">MapSearch</Nav.Link>,
-              <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
-              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
-              <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
+              // <Nav.Link id="add-player-nav" as={NavLink} to="/addplayer">Add Player</Nav.Link>,
+              // <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
+              // <Nav.Link id="team-nav" as={NavLink} to="/team">Teams</Nav.Link>,
+              // <Nav.Link id="mapsearch-nav" as={NavLink} to="/mapsearch">MapSearch</Nav.Link>,
+              // <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
+              // <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
+              // <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
             ]) : ''}
             { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
@@ -37,9 +37,15 @@ const NavBar = () => {
             ) : ''}
             { /* Manager only */ }
             {Roles.userIsInRole(Meteor.userId(), 'manager') ? ([
-              <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager</Nav.Link>,
-              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager</Nav.Link>,
-              <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Manager</Nav.Link>,
+              // <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager Analysis</Nav.Link>,
+              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager Dashboard</Nav.Link>,
+              // <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Team Management</Nav.Link>,
+            ]) : ''}
+            { /* User only */ }
+            {currentUser && !Roles.userIsInRole(Meteor.userId(), ['admin', 'manager']) ? ([
+              // <Nav.Link id="user-analysis-nav" as={NavLink} to="/user-analysis" key="user-analysis">User Analysis</Nav.Link>,
+              <Nav.Link id="user-dashboard-nav" as={NavLink} to="/user-dashboard" key="user-dashboard">User Dashboard</Nav.Link>,
+              // <Nav.Link id="user-settings-nav" as={NavLink} to="/user-settings" key="user-settings">User Settings</Nav.Link>,
             ]) : ''}
             {/* Display when not logged in */}
             <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,
