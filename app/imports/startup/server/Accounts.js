@@ -44,25 +44,23 @@ if (Meteor.users.find().count() === 0) {
 // meteor methods to create accounts with roles, signup page calls this method
 Meteor.methods({
   'createUserWithRole'({ email, password, role }) {
-    if (!this.userId || !Roles.userIsInRole(this.userId, ['admin'])) {
-      // Only allow admins to create new users, or remove this check if you want to allow anyone to sign up.
-      throw new Meteor.Error('not-authorized', 'You are not authorized to perform this action.');
-    }
-
     try {
       const userID = Accounts.createUser({ email, username: email, password });
-
-      // Ensure the role exists before trying to assign it
-      if (!Roles.roleExists(role)) {
-        Roles.createRole(role, { unlessExists: true });
+      if (role === 'manager') {
+        Roles.createRole('manager', { unlessExists: true });
+        Roles.addUsersToRoles(userID, 'manager');
+        // eslint-disable-next-line brace-style
+      }
+      // handle the 'user' role or other roles
+      else if (role === 'user') {
+        Roles.createRole('user', { unlessExists: true });
+        Roles.addUsersToRoles(userID, 'user');
       }
 
-      Roles.addUsersToRoles(userID, role);
       console.log(`User ${email} created with ID: ${userID} and role: ${role}`);
-
-      // return the userID or a success message
     } catch (error) {
-      throw new Meteor.Error('create-user-failed', error.message || 'Failed to create user.');
+      console.error('Error creating user:', error);
+      throw new Meteor.Error('create-user-failed', error.reason || 'Failed to create user.');
     }
   },
 });
