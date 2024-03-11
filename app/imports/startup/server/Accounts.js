@@ -5,16 +5,12 @@ import { Roles } from 'meteor/alanning:roles';
 Meteor.methods({
   'createUserAccount'({ email, password, role }) {
     if (Meteor.isServer) {
-      let userID;
-
+      // Create the user account
       try {
-        userID = Accounts.createUser({ email, password });
-
+        const userID = Accounts.createUser({ email, username: email, password });
+        console.log(`User ${email} created with ID:`, userID);
         // Check if the role exists, create it if not, and then assign the role to the user
-        if (!Roles.roleExists(role)) {
-          Roles.createRole(role, { unlessExists: true });
-        }
-
+        Roles.createRole(role, { unlessExists: true });
         Roles.addUsersToRoles(userID, role);
 
         // For debugging purposes

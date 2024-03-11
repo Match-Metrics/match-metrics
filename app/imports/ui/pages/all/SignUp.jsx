@@ -12,7 +12,7 @@ import { Meteor } from 'meteor/meteor';
  */
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
-  const [redirectToReferer] = useState(false);
+  let [redirectToReferer] = useState(false);
 
   const schema = new SimpleSchema({
     email: String,
@@ -32,7 +32,11 @@ const SignUp = ({ location }) => {
       if (err) {
         setError(err.reason);
       } else {
-        // Handle successful account creation, such as redirecting the user
+        setError('');
+        // redirect to home page after successful registration and login
+        // eslint-disable-next-line no-undef
+        redirectToReferer = useState(true);
+
       }
     });
   };
@@ -45,8 +49,10 @@ const SignUp = ({ location }) => {
     if (schema.clean({ role: 'manager' }).role === 'manager') {
       return <Navigate to="/manager-dashboard" />;
     }
-    return <Navigate to="/user-dashboard" />;
-    // return <Navigate to={from} />;
+    if (schema.clean({ role: 'user' }).role === 'user') {
+      return <Navigate to="/user-dashboard" />;
+    }
+    return <Navigate to={from} />;
   }
   return (
     <Container id="signup-page" className="py-3">
