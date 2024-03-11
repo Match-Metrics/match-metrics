@@ -4,15 +4,15 @@ import { Link, Navigate } from 'react-router-dom';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import SelectField from 'uniforms-bootstrap4/SelectField';
 import { Meteor } from 'meteor/meteor';
-
 /**
  * SignUp component is similar to signin component, but we create a new user instead.
  */
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
-  let [redirectToReferer] = useState(false);
+  const [redirectToReferer, setRedirectToRef] = useState(false);
 
   const schema = new SimpleSchema({
     email: String,
@@ -20,7 +20,12 @@ const SignUp = ({ location }) => {
     role: {
       type: String,
       allowedValues: ['user', 'manager'],
-      defaultValue: 'user',
+      uniforms: {
+        options: [
+          { label: 'User', value: 'user' },
+          { label: 'Manager', value: 'manager' },
+        ],
+      },
     },
   });
   const bridge = new SimpleSchema2Bridge(schema);
@@ -28,15 +33,12 @@ const SignUp = ({ location }) => {
   /* Handle SignUp submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = (doc) => {
     const { email, password, role } = doc;
-    Meteor.call('createUserAccount', { email, password, role }, (err) => {
+    Meteor.call('createUserWithRole', { email, password, role }, (err) => {
       if (err) {
         setError(err.reason);
       } else {
         setError('');
-        // redirect to home page after successful registration and login
-        // eslint-disable-next-line no-undef
-        redirectToReferer = useState(true);
-
+        setRedirectToRef(true);
       }
     });
   };
@@ -45,13 +47,6 @@ const SignUp = ({ location }) => {
   const { from } = location?.state || { from: { pathname: '/add' } };
   // if correct authentication, redirect to from: page instead of signup screen
   if (redirectToReferer) {
-    // if signup was successful and manager redirect to /manager-dashboard else redirect to /user-dashboard
-    if (schema.clean({ role: 'manager' }).role === 'manager') {
-      return <Navigate to="/manager-dashboard" />;
-    }
-    if (schema.clean({ role: 'user' }).role === 'user') {
-      return <Navigate to="/user-dashboard" />;
-    }
     return <Navigate to={from} />;
   }
   return (
