@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Navigate } from 'react-router-dom';
-import { Accounts } from 'meteor/accounts-base';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { Meteor } from 'meteor/meteor';
 
 /**
  * SignUp component is similar to signin component, but we create a new user instead.
@@ -28,9 +28,11 @@ const SignUp = ({ location }) => {
   /* Handle SignUp submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = (doc) => {
     const { email, password, role } = doc;
-    Accounts.createUser({ email, username: email, password, role }, (err) => {
+    Meteor.call('createUserAccount', { email, password, role }, (err) => {
       if (err) {
         setError(err.reason);
+      } else {
+        // Handle successful account creation, such as redirecting the user
       }
     });
   };
