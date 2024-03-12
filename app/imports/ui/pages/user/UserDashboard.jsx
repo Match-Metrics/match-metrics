@@ -45,7 +45,7 @@ const UserDashboard = () => (
             <Card.Text>
               Check out your team's roster and connect with teammates.
             </Card.Text>
-            <Button as={NavLink} to="/team-roster" variant="primary" block>
+            <Button as={NavLink} to="/user-roster" variant="primary" block>
               Team Roster
             </Button>
           </Card.Body>
@@ -58,7 +58,7 @@ const UserDashboard = () => (
             <Card.Text>
               Stay on top of your schedule with your personal calendar.
             </Card.Text>
-            <Button as={NavLink} to="/user-calendar" variant="primary" block>
+            <Button as={NavLink} to="/calendar" variant="primary" block>
               Calendar
             </Button>
           </Card.Body>

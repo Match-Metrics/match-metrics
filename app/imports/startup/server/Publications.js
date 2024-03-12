@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { Players } from '../../api/player/Player';
 import { Teams } from '../../api/team/Team';
 import { Events } from '../../api/event/Event';
@@ -27,4 +28,13 @@ Meteor.publish(null, function () {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });
   }
   return this.ready();
+});
+
+Meteor.publish('accountsAwaitingApproval', function () {
+  if (Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({ role: 'manager', approvalStatus: 'pending' });
+  }
+  // Prevent non-admins from accessing this publication
+  return this.ready();
+
 });

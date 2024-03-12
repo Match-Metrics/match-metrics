@@ -46,7 +46,7 @@ const ManagerDashboard = () => (
             <Card.Text>
               View or edit your team's calendar.
             </Card.Text>
-            <Button as={NavLink} to="/team-calendar" variant="primary" block>
+            <Button as={NavLink} to="/calendar" variant="primary" block>
               Calendar
             </Button>
           </Card.Body>

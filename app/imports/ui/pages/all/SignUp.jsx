@@ -6,6 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
@@ -25,21 +26,31 @@ const SignUp = ({ location }) => {
 
   const submit = (doc) => {
     const { email, password, role } = doc;
-    Meteor.call('createUserWithRole', { email, password, role }, (err) => {
+
+    Meteor.call('createUserWithRole', { email, password, role }, (err, userId) => {
       if (err) {
         setError(err.reason);
       } else {
-        // Log in the user manually after account creation
-        Meteor.loginWithPassword(email, password, (loginError) => {
-          if (loginError) {
-            setError(loginError.reason);
-          } else {
-            // Reset the error state and proceed with redirection based on the role
-            setError('');
-            setRedirectPath(role === 'manager' ? '/manager-dashboard' : '/user-dashboard');
-            setRedirectToRef(true);
-          }
-        });
+        // Reset the error state
+        setError('');
+
+        if (role === 'manager') {
+          // Managers are directed to the pending approval page without logging in
+          setRedirectPath('/pending-approval');
+          setRedirectToRef(true);
+        } else {
+          // Other roles (e.g., 'user') proceed with login
+          Roles.addUsersToRoles(userId, role);
+          Meteor.loginWithPassword(email, password, (loginError) => {
+            if (loginError) {
+              setError(loginError.reason);
+            } else {
+              // Direct users to the user dashboard upon successful login
+              setRedirectPath('/user-dashboard');
+              setRedirectToRef(true);
+            }
+          });
+        }
       }
     });
   };
