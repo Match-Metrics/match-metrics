@@ -63,7 +63,7 @@ const MapSearch = () => {
 
   return (
     <LoadScript
-      googleMapsApiKey="YOUR-KEY-HERE"
+      googleMapsApiKey="AIzaSyAhjUj42pjiQrYx901CaaCvXzEzD6CvCoo"
       libraries={['places']}
       onLoad={() => setIsMapScriptLoaded(true)}
     >

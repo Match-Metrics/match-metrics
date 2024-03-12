@@ -30,6 +30,13 @@ const NavBar = () => {
               // <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
               // <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
               // <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
+
+              <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
+              <Nav.Link id="team-nav" as={NavLink} to="/team">Teams</Nav.Link>,
+              <Nav.Link id="mapsearch-nav" as={NavLink} to="/mapsearch">MapSearch</Nav.Link>,
+              <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
+              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
+              <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
             ]) : ''}
             { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
