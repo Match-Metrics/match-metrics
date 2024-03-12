@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { AutoForm, DateField, ErrorsField, HiddenField, NumField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -13,9 +14,14 @@ const AddPlayer = () => {
   const [imageFile, setImageFile] = useState(null);
   let fRef = null;
   const user = Meteor.user();
+  const navigate = useNavigate();
 
   const handleImageChange = (file) => {
     setImageFile(file);
+  };
+
+  const handleAddEvent = () => {
+    navigate('/stats');
   };
 
   const submit = (data) => {
@@ -59,6 +65,9 @@ const AddPlayer = () => {
         <Row className="justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
           <Col xs={5}>
             <Col className="text-center"><h2>Add Player</h2></Col>
+            <Col className="text-center">
+              <Button variant="link" size="sm" onClick={handleAddEvent}>Back to Stats</Button>
+            </Col>
             <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data)}>
               <Card style={{ backgroundColor: 'white', border: 'none' }}>
                 <Card.Body>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Table } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Table, Button } from 'react-bootstrap';
 import StatsTable from '../../components/StatsTable';
 
 // Add in player number to Player later
@@ -168,12 +169,17 @@ const PlayerStatsPage = () => {
   ];
 
   const [sortedlist, setList] = useState([]);
+  const navigate = useNavigate();
 
   const sortList = (listToSort) => listToSort.sort((a, b) => {
     const numCompare = a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase().localeCompare());
     if (numCompare !== 0) return numCompare;
     return a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase());
   });
+
+  const handleEvent = () => {
+    navigate('/addplayer');
+  };
 
   useEffect(() => {
     setList(sortList(samplePlayers));
@@ -184,7 +190,20 @@ const PlayerStatsPage = () => {
       <Row style={{ paddingBottom: 15 }}>
         <h3 className="text-center">Player Stats - Team 1</h3>
       </Row>
-      <Row style={{ paddingBottom: 50 }}>
+      <div className="row justify-content-center">
+        <Button
+          size="sm"
+          variant="outline-primary"
+          style={{
+            maxWidth: 150,
+            position: 'right',
+          }}
+          onClick={handleEvent}
+        >
+          Add Player
+        </Button>
+      </div>
+      <Row style={{ paddingBottom: 50, paddingTop: 15 }}>
         <Table
           striped
           bordered
