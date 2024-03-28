@@ -117,6 +117,7 @@ const MapSearch = () => {
                 <div>
                   <h5>{selectedEvent.name}</h5>
                   <h6>Event Type: {selectedEvent.eventType}</h6>
+                  <h6>{selectedEvent.teams1} vs. {selectedEvent.teams2}</h6>
                   <h6>Address: {selectedAddress}</h6>
                   <p>{selectedEvent.description}</p>
                   <Button size="sm">

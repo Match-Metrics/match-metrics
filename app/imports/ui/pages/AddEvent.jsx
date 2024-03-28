@@ -19,7 +19,7 @@ const AddEvent = () => {
 
   useEffect(() => {
     const loadGooglePlacesScript = document.createElement('script');
-    loadGooglePlacesScript.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR-KEY-HERE&libraries=places';
+    loadGooglePlacesScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAhjUj42pjiQrYx901CaaCvXzEzD6CvCoo&libraries=places';
     document.body.appendChild(loadGooglePlacesScript);
 
     loadGooglePlacesScript.onload = () => {
