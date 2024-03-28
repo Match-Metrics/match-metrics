@@ -30,6 +30,9 @@ import NavBar from '../components/NavBar';
 import Team from '../pages/Team';
 import MapSearch from '../pages/Mapsearch';
 import PlayerStatsPage from '../pages/all/PlayerStatsPage';
+import UserRoster from '../pages/user/UserRoster';
+import UserCommunication from '../pages/user/UserCommunication';
+import PendingApproval from '../pages/manager/PendingApproval';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -65,6 +68,8 @@ const App = () => {
           <Route path="/user-analysis" element={<ProtectedRoute><UserAnalysis /></ProtectedRoute>} />
           <Route path="/user-dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
           <Route path="/user-settings" element={<ProtectedRoute><UserSettings /></ProtectedRoute>} />
+          <Route path="/user-roster" element={<ProtectedRoute><UserRoster /></ProtectedRoute>} />
+          <Route path="/user-communication" element={<ProtectedRoute><UserCommunication /></ProtectedRoute>} />
           {/* Manager Login required */}
           <Route path="/manager-analysis" element={<ProtectedRoute><ManagerAnalysis /></ProtectedRoute>} />
           <Route path="/manager-dashboard" element={<ProtectedRoute><ManagerDashboard /></ProtectedRoute>} />
@@ -74,6 +79,7 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
           {/* template */}
           <Route path="/notauthorized" element={<NotAuthorized />} />
+          <Route path="/pending-approval" element={<PendingApproval />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

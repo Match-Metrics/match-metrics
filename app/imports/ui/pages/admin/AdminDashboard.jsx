@@ -1,59 +1,108 @@
 import React from 'react';
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row, Button, Card, Table } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { useTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 
-/* Enhanced landing page component */
-const AdminDashboard = () => (
-  <Container id="landing-page" fluid className="p-5">
-    {/* Hero Section */}
-    <Row className="align-items-center text-center mb-5">
-      <Col className="section-padding">
-        <div className="text-background">
-          <h1 className="high-contrast-text text-shadow">Admin Dashboard</h1>
-          <p className="high-contrast-text">Your online platform for managing, supporting, and evaluating your soccer team.</p>
-        </div>
-      </Col>
-    </Row>
+const AdminDashboard = () => {
+  // eslint-disable-next-line no-shadow
+  const { accountsAwaitingApproval, isLoading } = useTracker(() => {
+    const noDataAvailable = { accountsAwaitingApproval: [] };
+    const handler = Meteor.subscribe('accountsAwaitingApproval');
 
-    {/* Features Section */}
-    <Row className="text-center mb-5">
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Plan Schedules</h2>
-          <p className="high-contrast-text">Easily plan and manage your teams schedules, from games to practice sessions.</p>
-        </div>
-      </Col>
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Analyze Performance</h2>
-          <p className="high-contrast-text">Get detailed insights into player metrics and game performances through video analysis.</p>
-        </div>
-      </Col>
-      <Col xs={12} md={4}>
-        <div className="text-background">
-          <h2 className="high-contrast-text text-shadow">Team Collaboration</h2>
-          <p className="high-contrast-text">Enhance team collaboration with easy-to-use communication tools and shared resources.</p>
-        </div>
-      </Col>
-    </Row>
+    if (!handler.ready()) {
+      return { ...noDataAvailable, isLoading: true };
+    }
 
-    {/* Testimonials Section */}
-    {/* <Row className="text-center mb-5"> */}
-    {/*  <Col xs={12}> */}
-    {/*    <h2>What Coaches Say</h2> */}
-    {/*    <blockquote className="blockquote"> */}
-    {/*      <p>"Soccer Manager has transformed the way we prepare for matches and analyze our performance."</p> */}
-    {/*      <footer className="blockquote-footer">Coach John Doe</footer> */}
-    {/*    </blockquote> */}
-    {/*  </Col> */}
-    {/* </Row> */}
+    // eslint-disable-next-line no-shadow
+    const accountsAwaitingApproval = Meteor.users.find({ approvalStatus: 'pending', role: 'manager' }).fetch();
+    return { accountsAwaitingApproval };
+  }, []);
 
-    {/* Call to Action Section */}
-    <Row className="text-center">
-      <Col xs={12}>
-        <Button variant="success" size="lg">Join Now and Elevate Your Team's Performance</Button>
-      </Col>
-    </Row>
-  </Container>
-);
+  const approveAccount = (userId) => {
+    Meteor.call('approveManager', userId, (error) => {
+      if (error) {
+        alert(`Error: ${error.reason}`);
+      } else {
+        alert('Account approved successfully.');
+      }
+    });
+  };
 
+  const rejectAccount = (userId) => {
+    Meteor.call('rejectAccount', userId, (error) => {
+      if (error) {
+        alert(`Error: ${error.reason}`);
+      } else {
+        alert('Account rejected.');
+      }
+    });
+  };
+
+  return (
+    <Container id="dashboard-page">
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <Row className="align-items-center text-center mb-5">
+            <Col>
+              <div className="text-background">
+                <h1 className="high-contrast-text text-shadow">Admin Dashboard</h1>
+              </div>
+            </Col>
+          </Row>
+
+          {/* Accounts Awaiting Approval Section */}
+          <Row className="mb-4">
+            <Col>
+              <h2>Accounts Awaiting Approval</h2>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Account Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {accountsAwaitingApproval.map((user, index) => (
+                    <tr key={user._id}>
+                      <td>{index + 1}</td>
+                      <td>{user.emails[0].address}</td>
+                      <td>
+                        <Button variant="success" size="sm" onClick={() => approveAccount(user._id)}>Approve</Button>{' '}
+                        <Button variant="danger" size="sm" onClick={() => rejectAccount(user._id)}>Reject</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+
+          {/* Manage Accounts Section */}
+          <Row>
+            <Col md={4} lg={4} className="mb-3">
+              <Card className="dashboard-card">
+                <Card.Body>
+                  <Card.Title>Manage Accounts</Card.Title>
+                  <div className="d-flex justify-content-start">
+                    <Button as={NavLink} to="/user-accounts" variant="info" className="me-2">
+                      User Accounts
+                    </Button>
+                    <Button as={NavLink} to="/manager-accounts" variant="info">
+                      Manager Accounts
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      )}
+    </Container>
+  );
+};
 export default AdminDashboard;

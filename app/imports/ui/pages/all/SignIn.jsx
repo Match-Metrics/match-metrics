@@ -5,6 +5,7 @@ import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { Roles } from 'meteor/alanning:roles';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -13,6 +14,8 @@ import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstra
 const SignIn = () => {
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [redirectPath, setRedirectPath] = useState('');
+
   const schema = new SimpleSchema({
     email: String,
     password: String,
@@ -25,8 +28,16 @@ const SignIn = () => {
     const { email, password } = doc;
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
-        setError(err.reason);
+        if (err.error === 'pending-approval') {
+          setError('Your account is awaiting approval.');
+          setRedirectPath('/pending-approval');
+          setRedirect(true);
+        } else {
+          setError(err.reason);
+        }
       } else {
+        const currentUserRole = Roles.getRolesForUser(Meteor.userId())[0]; // Ensure this is executed securely
+        setRedirectPath(currentUserRole === 'manager' ? '/manager-dashboard' : '/user-dashboard');
         setRedirect(true);
       }
     });
@@ -37,7 +48,7 @@ const SignIn = () => {
   // console.log('render', error, redirect);
   // if correct authentication, redirect to page instead of login screen
   if (redirect) {
-    return (<Navigate to="/" />);
+    return (<Navigate to={redirectPath} />);
   }
   // Otherwise return the Login form.
   return (
