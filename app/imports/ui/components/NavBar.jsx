@@ -23,13 +23,9 @@ const NavBar = () => {
           <Nav className="me-auto justify-content-start">
             {/* any logged in user */}
             {currentUser ? ([
-              <Nav.Link id="add-player-nav" as={NavLink} to="/addplayer">Add Player</Nav.Link>,
-              <Nav.Link id="add-team-nav" as={NavLink} to="/addteam">Add Team</Nav.Link>,
               <Nav.Link id="team-nav" as={NavLink} to="/team">Teams</Nav.Link>,
-              <Nav.Link id="mapsearch-nav" as={NavLink} to="/mapsearch">MapSearch</Nav.Link>,
-              <Nav.Link id="calendar-stuff-nav" as={NavLink} to="/calendar" key="calendar">Calendar</Nav.Link>,
-              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
               <Nav.Link id="player-stats-nav" as={NavLink} to="/stats">Player Stats</Nav.Link>,
+              <Nav.Link id="communication-nav" as={NavLink} to="/communication" key="communication">Communication</Nav.Link>,
             ]) : ''}
             { /* Admin only */ }
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
@@ -43,6 +39,28 @@ const NavBar = () => {
             ]) : ''}
             {/* Display when not logged in */}
             <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,
+            <NavDropdown id="event-dropdown" title="Event">
+              <NavDropdown.Item id="mapsearch-nav" as={NavLink} to="/mapsearch">
+                MapSearch
+              </NavDropdown.Item>
+              <NavDropdown.Item id="calendar-nav" as={NavLink} key="calendar" to="/calendar">
+                Calendar
+              </NavDropdown.Item>
+              <NavDropdown.Item id="add-event-nav" as={NavLink} to="/event">
+                Event
+              </NavDropdown.Item>
+            </NavDropdown>,
+            <NavDropdown id="add-dropdown" title="Add">
+              <NavDropdown.Item id="add-player-nav" as={NavLink} to="/addplayer">
+                Player
+              </NavDropdown.Item>
+              <NavDropdown.Item id="add-team-nav" as={NavLink} to="/addteam">
+                Team
+              </NavDropdown.Item>
+              <NavDropdown.Item id="add-event-nav" as={NavLink} to="/addevent">
+                Event
+              </NavDropdown.Item>
+            </NavDropdown>,
           </Nav>
           <Nav className="justify-content-end">
             {currentUser === '' ? (

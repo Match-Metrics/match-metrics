@@ -30,6 +30,7 @@ import NavBar from '../components/NavBar';
 import Team from '../pages/Team';
 import MapSearch from '../pages/Mapsearch';
 import PlayerStatsPage from '../pages/all/PlayerStatsPage';
+import EventPage from '../pages/EventPage';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/addplayer" element={<ProtectedRoute><AddPlayer /></ProtectedRoute>} />
           <Route path="/addteam" element={<ProtectedRoute><AddTeam /></ProtectedRoute>} />
           <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
+          <Route path="/event" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
           <Route path="/mapsearch" element={<ProtectedRoute><MapSearch /></ProtectedRoute>} />
           <Route path="/communication" element={<ProtectedRoute><Communication /></ProtectedRoute>} />
           <Route path="/stats" element={<ProtectedRoute><PlayerStatsPage /></ProtectedRoute>} />
