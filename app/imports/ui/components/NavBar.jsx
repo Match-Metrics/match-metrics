@@ -33,9 +33,15 @@ const NavBar = () => {
             ) : ''}
             { /* Manager only */ }
             {Roles.userIsInRole(Meteor.userId(), 'manager') ? ([
-              <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager</Nav.Link>,
-              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager</Nav.Link>,
-              <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Manager</Nav.Link>,
+              // <Nav.Link id="manager-analysis-nav" as={NavLink} to="/manager-analysis" key="manager-analysis">Manager Analysis</Nav.Link>,
+              <Nav.Link id="manager-dashboard-nav" as={NavLink} to="/manager-dashboard" key="manager-dashboard">Manager Dashboard</Nav.Link>,
+              // <Nav.Link id="team-management-nav" as={NavLink} to="/team-management" key="team-management">Team Management</Nav.Link>,
+            ]) : ''}
+            { /* User only */ }
+            {currentUser && !Roles.userIsInRole(Meteor.userId(), ['admin', 'manager']) ? ([
+              // <Nav.Link id="user-analysis-nav" as={NavLink} to="/user-analysis" key="user-analysis">User Analysis</Nav.Link>,
+              <Nav.Link id="user-dashboard-nav" as={NavLink} to="/user-dashboard" key="user-dashboard">User Dashboard</Nav.Link>,
+              // <Nav.Link id="user-settings-nav" as={NavLink} to="/user-settings" key="user-settings">User Settings</Nav.Link>,
             ]) : ''}
             {/* Display when not logged in */}
             <Nav.Link id="support-nav" as={NavLink} to="/support" key="support">Support Page</Nav.Link>,

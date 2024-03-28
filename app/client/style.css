@@ -75,3 +75,15 @@
 .custom-table {
   max-width: 10px;
 }
+
+#dashboard-page {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.dashboard-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
