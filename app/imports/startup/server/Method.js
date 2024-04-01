@@ -20,4 +20,16 @@ Meteor.methods({
       throw new Meteor.Error('cloudinary-upload-failed', 'Error uploading to Cloudinary');
     }
   },
+  // eslint-disable-next-line meteor/audit-argument-checks
+  async uploadVideo(videoData) {
+    this.unblock();
+
+    try {
+      // Specify the resource_type as 'video' to ensure Cloudinary handles it as a video
+      const result = await cloudinary.v2.uploader.upload(videoData, { resource_type: 'video' });
+      return result.secure_url;
+    } catch (error) {
+      throw new Meteor.Error('cloudinary-upload-failed', 'Error uploading video to Cloudinary');
+    }
+  },
 });
