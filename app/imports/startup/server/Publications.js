@@ -3,6 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Players } from '../../api/player/Player';
 import { Teams } from '../../api/team/Team';
 import { Events } from '../../api/event/Event';
+import { Videos } from '../../api/video/Video';
 
 Meteor.publish(Events.userPublicationName, function () {
   if (this.userId) {
@@ -13,6 +14,13 @@ Meteor.publish(Events.userPublicationName, function () {
 Meteor.publish(Players.userPublicationName, function () {
   if (this.userId) {
     return Players.collection.find();
+  }
+  return this.ready();
+});
+
+Meteor.publish(Videos.userPublicationName, function () {
+  if (this.userId) {
+    return Videos.collection.find();
   }
   return this.ready();
 });

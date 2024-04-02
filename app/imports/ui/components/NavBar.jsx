@@ -66,6 +66,9 @@ const NavBar = () => {
               <NavDropdown.Item id="add-event-nav" as={NavLink} to="/addevent">
                 Event
               </NavDropdown.Item>
+              <NavDropdown.Item id="video-process-nav" as={NavLink} to="/videoprocess">
+                Video Process
+              </NavDropdown.Item>
             </NavDropdown>,
           </Nav>
           <Nav className="justify-content-end">

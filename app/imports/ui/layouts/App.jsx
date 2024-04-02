@@ -34,6 +34,7 @@ import EventPage from '../pages/EventPage';
 import UserRoster from '../pages/user/UserRoster';
 import UserCommunication from '../pages/user/UserCommunication';
 import PendingApproval from '../pages/manager/PendingApproval';
+import VideoProcess from '../pages/VideoProcess';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/addevent" element={<ProtectedRoute><AddEvent /></ProtectedRoute>} />
           <Route path="/addplayer" element={<ProtectedRoute><AddPlayer /></ProtectedRoute>} />
           <Route path="/addteam" element={<ProtectedRoute><AddTeam /></ProtectedRoute>} />
+          <Route path="/videoprocess" element={<ProtectedRoute><VideoProcess /></ProtectedRoute>} />
           <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
           <Route path="/event" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
           <Route path="/mapsearch" element={<ProtectedRoute><MapSearch /></ProtectedRoute>} />

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Players } from '../../api/player/Player';
 import { Teams } from '../../api/team/Team';
 import { Events } from '../../api/event/Event';
+import { Videos } from '../../api/video/Video';
 
 const addPlayer = (player) => {
   console.log(`  Adding: ${player.firstName} (${player.owner})`);
@@ -36,5 +37,17 @@ if (Events.collection.find().count() === 0) {
   if (Meteor.settings.defaultEvents) {
     console.log('Creating default events.');
     Meteor.settings.defaultEvents.forEach(data => addEvent(data));
+  }
+}
+
+const addVideo = (video) => {
+  console.log(`  Adding: ${video.owner}`);
+  Videos.collection.insert(video);
+};
+
+if (Videos.collection.find().count() === 0) {
+  if (Meteor.settings.defaultVideos) {
+    console.log('Creating default videos.');
+    Meteor.settings.defaultVideos.forEach(data => addVideo(data));
   }
 }

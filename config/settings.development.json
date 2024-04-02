@@ -7,6 +7,9 @@
   "defaultPlayers": [
   ],
 
+  "defaultVideos": [
+  ],
+
   "defaultTeams": [
     {
       "owner": "Alex Johnson",
