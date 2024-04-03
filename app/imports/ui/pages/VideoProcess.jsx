@@ -6,11 +6,13 @@ import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import FileField from '../components/FileField';
 import { Videos } from '../../api/video/Video';
+import LoadingSpinner from '../components/LoadingSpinner'; // Make sure this is the correct path
 
 const bridge = new SimpleSchema2Bridge(Videos.schema);
 
 const VideoProcess = () => {
   const [videoFile, setVideoFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // New state for managing loading state
 
   const handleVideoChange = (file) => {
     setVideoFile(file);
@@ -18,12 +20,14 @@ const VideoProcess = () => {
 
   const submit = (formData) => {
     if (videoFile) {
+      setIsLoading(true); // Set loading state to true
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Data = reader.result.split(',')[1];
         const fileName = videoFile.name;
 
         Meteor.call('uploadAndAnalyzeVideo', base64Data, fileName, (error, response) => {
+          setIsLoading(false); // Reset loading state to false regardless of the result
           if (error) {
             console.error('Error:', error);
             swal('Error', 'Failed to process video.', 'error');
@@ -58,12 +62,15 @@ const VideoProcess = () => {
             <Card>
               <Card.Body>
                 <Card.Title className="text-center mb-3">Submit Video For Analysis</Card.Title>
-                <AutoForm schema={bridge} onSubmit={submit}>
-                  <FileField name="video" onChange={handleVideoChange} />
-                  <ErrorsField />
-                  <SubmitField className="mt-2" value="Submit Video" />
-                  <HiddenField name="owner" value={Meteor.user()?.username} />
-                </AutoForm>
+                {/* Show loading spinner if isLoading is true */}
+                {isLoading ? <LoadingSpinner /> : (
+                  <AutoForm schema={bridge} onSubmit={submit}>
+                    <FileField name="video" onChange={handleVideoChange} />
+                    <ErrorsField />
+                    <SubmitField className="mt-2" value="Submit Video" />
+                    <HiddenField name="owner" value={Meteor.user()?.username} />
+                  </AutoForm>
+                )}
               </Card.Body>
             </Card>
           </Col>
