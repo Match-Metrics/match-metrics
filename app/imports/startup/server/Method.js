@@ -4,18 +4,18 @@ import { Storage } from '@google-cloud/storage';
 import { VideoIntelligenceServiceClient } from '@google-cloud/video-intelligence';
 
 cloudinary.config({
-  cloud_name: 'YOUR-KEY-HERE',
-  api_key: 'YOUR-KEY-HERE',
-  api_secret: 'YOUR-KEY-HERE',
+  cloud_name: 'djoahlpoc',
+  api_key: '354746466781165',
+  api_secret: 'aB3nFmnEjVh8vAm_f9qn2wE7ifk',
 });
 
 const storage = new Storage({
-  keyFilename: 'YOUR-PATH',
+  keyFilename: 'C:/Users/zhuoc/Downloads/astute-smile-404820-ed90c788c2f1.json',
 });
-const bucketName = 'YOUR-BUCKET';
+const bucketName = 'match_bucket808';
 
 const videoIntelligenceClient = new VideoIntelligenceServiceClient({
-  keyFilename: 'YOUR-PATH',
+  keyFilename: 'C:/Users/zhuoc/Downloads/astute-smile-404820-ed90c788c2f1.json',
 });
 
 Meteor.methods({
