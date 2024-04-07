@@ -252,5 +252,9 @@
       "teams2": "Harbor Guardians",
       "eventType": "Training"
     }
-  ]
+  ],
+  "private": {
+    "GOOGLE_GEN_AI_API_KEY": "AIzaSyB0N-ddxiCEEeAbO7kBQU3662rAkNBKeUE"
+  }
+
 }
