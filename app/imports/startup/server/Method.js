@@ -4,18 +4,18 @@ import { Storage } from '@google-cloud/storage';
 import { VideoIntelligenceServiceClient } from '@google-cloud/video-intelligence';
 
 cloudinary.config({
-  cloud_name: 'djoahlpoc',
-  api_key: '354746466781165',
-  api_secret: 'aB3nFmnEjVh8vAm_f9qn2wE7ifk',
+  cloud_name: 'YOUR-KEY-HERE',
+  api_key: 'YOUR-KEY-HERE',
+  api_secret: 'YOUR-KEY-HERE',
 });
 
 const storage = new Storage({
-  keyFilename: 'C:/Users/zhuoc/Downloads/astute-smile-404820-ed90c788c2f1.json',
+  keyFilename: 'YOUR-PATH',
 });
-const bucketName = 'match_bucket808';
+const bucketName = 'YOUR-BUCKET';
 
 const videoIntelligenceClient = new VideoIntelligenceServiceClient({
-  keyFilename: 'C:/Users/zhuoc/Downloads/astute-smile-404820-ed90c788c2f1.json',
+  keyFilename: 'YOUR-PATH',
 });
 
 Meteor.methods({
@@ -29,6 +29,19 @@ Meteor.methods({
     } catch (error) {
       console.log(error);
       throw new Meteor.Error('cloudinary-upload-failed', 'Error uploading to Cloudinary');
+    }
+  },
+
+  // eslint-disable-next-line meteor/audit-argument-checks
+  async uploadVideo(videoData) {
+    this.unblock();
+
+    try {
+      // Specify the resource_type as 'video' to ensure Cloudinary handles it as a video
+      const result = await cloudinary.v2.uploader.upload(videoData, { resource_type: 'video' });
+      return result.secure_url;
+    } catch (error) {
+      throw new Meteor.Error('cloudinary-upload-failed', 'Error uploading video to Cloudinary');
     }
   },
 
