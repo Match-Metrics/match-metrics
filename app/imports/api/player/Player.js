@@ -32,6 +32,7 @@ class PlayersCollection {
       position: {
         type: String,
         allowedValues: [
+          'Unknown', // Default value
           'Goalkeeper',
           'Left Back',
           'Right Back',
@@ -69,6 +70,14 @@ class PlayersCollection {
       },
       achievements: {
         type: String,
+        optional: true,
+      },
+      goals: {
+        type: Number,
+        optional: true,
+      },
+      assists: {
+        type: Number,
         optional: true,
       },
     });
