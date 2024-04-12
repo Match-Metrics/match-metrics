@@ -36,6 +36,7 @@ const AddPlayer = () => {
           if (fRef) {
             fRef.reset();
           }
+          navigate('/stats'); // Go to stats page
         }
       });
     };
@@ -80,6 +81,8 @@ const AddPlayer = () => {
                   <NumField inputClassName="border-dark" name="weight" />
                   <TextField inputClassName="border-dark" name="skills" />
                   <TextField inputClassName="border-dark" name="achievements" />
+                  <TextField inputClassName="border-dark" name="goals" />
+                  <TextField inputClassName="border-dark" name="assists" />
                   <div className="mb-3">
                     <FileField name="picture" onChange={handleImageChange} />
                   </div>

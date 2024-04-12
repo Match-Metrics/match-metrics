@@ -35,6 +35,7 @@ import UserRoster from '../pages/user/UserRoster';
 import UserCommunication from '../pages/user/UserCommunication';
 import PendingApproval from '../pages/manager/PendingApproval';
 import VideoProcess from '../pages/VideoProcess';
+import EditPlayer from '../components/EditPlayer';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/mapsearch" element={<ProtectedRoute><MapSearch /></ProtectedRoute>} />
           <Route path="/communication" element={<ProtectedRoute><Communication /></ProtectedRoute>} />
           <Route path="/stats" element={<ProtectedRoute><PlayerStatsPage /></ProtectedRoute>} />
+          <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
           {/* User Login required */}
           <Route path="/user-analysis" element={<ProtectedRoute><UserAnalysis /></ProtectedRoute>} />
           <Route path="/user-dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />

@@ -49,6 +49,7 @@ module.exports = {
     'prefer-destructuring': 'off',
     'prefer-promise-reject-errors': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-one-expression-per-line': 'off',
     'react/no-array-index-key': 'off',
   },
