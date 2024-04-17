@@ -1,78 +1,56 @@
 import React, { useState } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import { AutoForm, ErrorsField, HiddenField, SubmitField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
-import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import FileField from '../components/FileField';
-import { Videos } from '../../api/video/Video';
-import LoadingSpinner from '../components/LoadingSpinner'; // Make sure this is the correct path
-
-const bridge = new SimpleSchema2Bridge(Videos.schema);
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 
 const VideoProcess = () => {
   const [videoFile, setVideoFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // New state for managing loading state
+  const [loading, setLoading] = useState(false);
 
-  const handleVideoChange = (file) => {
-    setVideoFile(file);
+  const handleVideoChange = (event) => {
+    setVideoFile(event.target.files[0]);
   };
 
-  const submit = (formData) => {
-    if (videoFile) {
-      setIsLoading(true); // Set loading state to true
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Data = reader.result.split(',')[1];
-        const fileName = videoFile.name;
+  const submitVideo = async () => {
+    if (!videoFile) {
+      swal('Please select a video to upload.');
+      return;
+    }
 
-        Meteor.call('uploadAndAnalyzeVideo', base64Data, fileName, (error, response) => {
-          setIsLoading(false); // Reset loading state to false regardless of the result
-          if (error) {
-            console.error('Error:', error);
-            swal('Error', 'Failed to process video.', 'error');
-          } else {
-            const { videoUrl, analysisResult } = response;
-            console.log(analysisResult);
-            console.log(videoUrl);
-            // eslint-disable-next-line no-param-reassign
-            formData.videoUrl = videoUrl;
-            Videos.collection.insert(formData, (insertErr) => {
-              if (insertErr) {
-                console.error('Insert error:', insertErr);
-                swal('Error', 'Failed to save video information.', 'error');
-              } else {
-                swal('Success', 'Video uploaded, analyzed, and saved successfully.', 'success');
-              }
-            });
-          }
-        });
-      };
-      reader.readAsDataURL(videoFile);
-    } else {
-      swal('Error', 'Please select a video file.', 'error');
+    const formData = new FormData();
+    formData.append('video', videoFile);
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/analyze-video', {
+        method: 'POST',
+        body: formData,
+      });
+      setLoading(false);
+
+      // eslint-disable-next-line no-unused-vars
+      const result = await response.json();
+      swal('Video processed successfully!, Video can be found in same path as uploaded video.');
+    } catch (error) {
+      setLoading(false);
+      swal('Failed to process the video.');
     }
   };
 
   return (
     <div>
-      <Container className="py-3">
-        <Row className="justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
-          <Col xs={12} md={6}>
-            <Card>
-              <Card.Body>
-                <Card.Title className="text-center mb-3">Submit Video For Analysis</Card.Title>
-                {/* Show loading spinner if isLoading is true */}
-                {isLoading ? <LoadingSpinner /> : (
-                  <AutoForm schema={bridge} onSubmit={submit}>
-                    <FileField name="video" onChange={handleVideoChange} />
-                    <ErrorsField />
-                    <SubmitField className="mt-2" value="Submit Video" />
-                    <HiddenField name="owner" value={Meteor.user()?.username} />
-                  </AutoForm>
-                )}
-              </Card.Body>
-            </Card>
+      <Container style={{ width: '70%' }}>
+        <Row className="justify-content-center">
+          <Col style={{ maxWidth: '800px' }} className="text-center p-4">
+            <Container className="m-5">
+              <h1 style={{ fontSize: 60, fontWeight: 'bold' }}>Soccer Video Analysis</h1>
+              <h3 style={{ marginTop: '1em', fontWeight: 'lighter', color: 'gray' }}>Process your video with player and ball detection along with ball path, receive a video in minimal time!</h3>
+            </Container>
+            <h5 style={{ marginBottom: '50px', fontSize: 15 }}>Powered by Match Metrics</h5>
+            <div>
+              <input type="file" onChange={handleVideoChange} />
+              <Button style={{ borderColor: 'black', margin: 10, color: 'black', background: 'white' }} onClick={submitVideo}>Generate</Button>
+              {loading && <Spinner animation="border" />}
+            </div>
           </Col>
         </Row>
       </Container>

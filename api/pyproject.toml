@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "match-metrics"
+version = "0.1.0"
+description = ""
+authors = ["John foo <john@foo.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+norfair = {git = "https://github.com/tryolabs/norfair.git", rev = "master"}
+torch = "^1.12.1"
+opencv-python = "^4.6.0.66"
+numpy = "^1.23.4"
+Pillow = "9.4.0"
+matplotlib = "^3.6.1"
+pandas = "^1.5.0"
+torchvision = "^0.13.1"
+PyYAML = "^6.0"
+tqdm = "^4.64.1"
+seaborn = "^0.12.0"
+ipython = "^8.5.0"
+opencv-python-headless = "^4.9.0.80"
+flask = "^3.0.2"
+flask-cors = "^4.0.0"
+google-cloud-storage = "^2.16.0"
+cloudinary = "^1.39.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
