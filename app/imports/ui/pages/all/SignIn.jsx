@@ -5,7 +5,6 @@ import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
-import { Roles } from 'meteor/alanning:roles';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -24,24 +23,29 @@ const SignIn = () => {
 
   // Handle Signin submission using Meteor's account mechanism.
   const submit = (doc) => {
-    // console.log('submit', doc, redirect);
     const { email, password } = doc;
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
-        if (err.error === 'pending-approval') {
-          setError('Your account is awaiting approval.');
-          setRedirectPath('/pending-approval');
-          setRedirect(true);
-        } else {
-          setError(err.reason);
-        }
+        setError(err.reason || 'Login failed. Please try again.');
       } else {
-        const currentUserRole = Roles.getRolesForUser(Meteor.userId())[0]; // Ensure this is executed securely
-        setRedirectPath(currentUserRole === 'manager' ? '/manager-dashboard' : '/user-dashboard');
-        setRedirect(true);
+        // Call the method to get roles after successful login
+        Meteor.call('getUserRoles', (errr, roles) => {
+          if (error) {
+            console.error('Error getting roles:', errr);
+            setError('Failed to retrieve user roles.');
+          } else {
+            if (roles.includes('admin')) {
+              setRedirectPath('/admin-dashboard');
+            } else if (roles.includes('manager')) {
+              setRedirectPath('/manager-dashboard');
+            } else {
+              setRedirectPath('/user-dashboard'); // default user dashboard or home page
+            }
+            setRedirect(true);
+          }
+        });
       }
     });
-    // console.log('submit2', email, password, error, redirect);
   };
 
   // Render the signin form.

@@ -88,4 +88,11 @@ Meteor.methods({
     // remove account
     Meteor.users.remove(userId);
   },
+  getUserRoles: function () {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in to get roles');
+    }
+
+    return Roles.getRolesForUser(this.userId);
+  },
 });
