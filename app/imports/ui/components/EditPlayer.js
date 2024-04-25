@@ -82,7 +82,7 @@ const EditPlayer = () => {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   return (
-    <Container fluid className="add-edit" id="edit-player-page">
+    <Container fluid className="add-edit edit-page" id="edit-player-page">
       <Col>
         <Row className="text-center">
           <h2>Edit Player Info</h2>
@@ -96,8 +96,8 @@ const EditPlayer = () => {
                 <DateField inputClassName="border-dark" name="dateOfBirth" />
                 <SelectField inputClassName="border-dark" name="position" />
                 <TextField inputClassName="border-dark" name="team" />
-                <NumField inputClassName="border-dark" name="height" />
-                <NumField inputClassName="border-dark" name="weight" />
+                <NumField inputClassName="border-dark" name="height" label="Height (in)" />
+                <NumField inputClassName="border-dark" name="weight" label="Weight (lbs)" />
                 <TextField inputClassName="border-dark" name="skills" />
                 <TextField inputClassName="border-dark" name="achievements" />
                 <TextField inputClassName="border-dark" name="goals" />

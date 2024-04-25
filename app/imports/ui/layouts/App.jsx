@@ -69,7 +69,6 @@ const App = () => {
           <Route path="/mapsearch" element={<ProtectedRoute><MapSearch /></ProtectedRoute>} />
           <Route path="/communication" element={<ProtectedRoute><Communication /></ProtectedRoute>} />
           <Route path="/stats" element={<ProtectedRoute><PlayerStatsPage /></ProtectedRoute>} />
-          <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
           {/* User Login required */}
           <Route path="/user-analysis" element={<ProtectedRoute><UserAnalysis /></ProtectedRoute>} />
           <Route path="/user-dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
@@ -81,6 +80,7 @@ const App = () => {
           <Route path="/manager-dashboard" element={<ProtectedRoute><ManagerDashboard /></ProtectedRoute>} />
           <Route path="/manager-settings" element={<ProtectedRoute><ManagerSettings /></ProtectedRoute>} />
           <Route path="/team-management" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
+          <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
           {/* Admin Login required */}
           <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
           {/* template */}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
 import { Button } from 'react-bootstrap';
 import swal from 'sweetalert';
 import { Players } from '../../api/player/Player';
@@ -34,31 +35,35 @@ const StatsTable = ({ players }) => {
       <td>{players.position}</td>
       <td>{players.goals}</td>
       <td>{players.assists}</td>
-      <td>
+      {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
         <td>
-          <Button
-            id={`edit-${players._id}`}
-            variant="outline-primary"
-          >
-            <Link to={`/editplayer/${players._id}`}>Edit</Link>
-          </Button>
+          <td>
+            <Button
+              id={`edit-${players._id}`}
+              variant="outline-primary"
+            >
+              <Link to={`/editplayer/${players._id}`}>Edit</Link>
+            </Button>
+          </td>
         </td>
-      </td>
-      <td>
-        <div className="justify-content-center">
-          <Button
-            size="sm"
-            variant="outline-danger"
-            style={{
-              maxWidth: 150,
-              position: 'right',
-            }}
-            onClick={() => removeItem(players._id)}
-          >
-            Remove Player
-          </Button>
-        </div>
-      </td>
+      ) : ''}
+      {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+        <td>
+          <div className="justify-content-center">
+            <Button
+              size="sm"
+              variant="outline-danger"
+              style={{
+                maxWidth: 150,
+                position: 'right',
+              }}
+              onClick={() => removeItem(players._id)}
+            >
+              Remove Player
+            </Button>
+          </div>
+        </td>
+      ) : ''}
     </tr>
   );
 };
