@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Container, Row, Table, Button, Nav } from 'react-bootstrap';
+import { Container, Row, Table, Button } from 'react-bootstrap';
 import { Players } from '../../../api/player/Player';
 import StatsTable from '../../components/StatsTable';
 

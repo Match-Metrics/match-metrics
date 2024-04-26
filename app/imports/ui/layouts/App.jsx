@@ -76,13 +76,28 @@ const App = () => {
           <Route path="/user-roster" element={<ProtectedRoute><UserRoster /></ProtectedRoute>} />
           <Route path="/user-communication" element={<ProtectedRoute><UserCommunication /></ProtectedRoute>} />
           {/* Manager Login required */}
-          <Route path="/manager-analysis" element={<ProtectedRoute><ManagerAnalysis /></ProtectedRoute>} />
-          <Route path="/manager-dashboard" element={<ProtectedRoute><ManagerDashboard /></ProtectedRoute>} />
-          <Route path="/manager-settings" element={<ProtectedRoute><ManagerSettings /></ProtectedRoute>} />
-          <Route path="/team-management" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
-          <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
+          {Roles.userIsInRole(Meteor.userId(), 'manager') ? (
+            <Route path="/stats" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
+          ) : ''}
+          {Roles.userIsInRole(Meteor.userId(), 'manager') ? (
+            <Route path="/manager-analysis" element={<ProtectedRoute><ManagerAnalysis /></ProtectedRoute>} />
+          ) : ''}
+          {Roles.userIsInRole(Meteor.userId(), 'manager') ? (
+            <Route path="/manager-dashboard" element={<ProtectedRoute><ManagerDashboard /></ProtectedRoute>} />
+          ) : ''}
+          {Roles.userIsInRole(Meteor.userId(), 'manager') ? (
+            <Route path="/manager-settings" element={<ProtectedRoute><ManagerSettings /></ProtectedRoute>} />
+          ) : ''}
+          {Roles.userIsInRole(Meteor.userId(), 'manager') ? (
+            <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
+          ) : ''}
           {/* Admin Login required */}
-          <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
+          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+            <Route path="/team-management" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
+          ) : ''}
+          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+            <Route path="/admin-dashboard" element={<AdminProtectedRoute ready={ready}><AdminDashboard /></AdminProtectedRoute>} />
+          ) : ''}
           {/* template */}
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="/pending-approval" element={<PendingApproval />} />
