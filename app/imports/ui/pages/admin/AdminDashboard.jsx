@@ -1,12 +1,12 @@
-import React from 'react';
-import { Col, Container, Row, Button, Card, Table } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Col, Container, Row, Button, Table } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 const AdminDashboard = () => {
-  // eslint-disable-next-line no-shadow
-  const { accountsAwaitingApproval, isLoading } = useTracker(() => {
+  const [roleFilter, setRoleFilter] = useState('user'); // Default to 'manager'
+
+  const { accountsAwaitingApproval, isLoadingApproval } = useTracker(() => {
     const noDataAvailable = { accountsAwaitingApproval: [] };
     const handler = Meteor.subscribe('accountsAwaitingApproval');
 
@@ -14,10 +14,23 @@ const AdminDashboard = () => {
       return { ...noDataAvailable, isLoading: true };
     }
 
-    // eslint-disable-next-line no-shadow
-    const accountsAwaitingApproval = Meteor.users.find({ approvalStatus: 'pending', role: 'manager' }).fetch();
-    return { accountsAwaitingApproval };
+    return {
+      accountsAwaitingApproval: Meteor.users.find({ approvalStatus: 'pending', role: 'manager' }).fetch(),
+    };
   }, []);
+
+  const { accounts, isLoadingAccounts } = useTracker(() => {
+    const handler = Meteor.subscribe('accountsByRole', roleFilter);
+
+    if (!handler.ready()) {
+      return { accounts: [], isLoading: true };
+    }
+
+    return {
+      accounts: Meteor.users.find({ role: roleFilter }).fetch(),
+      isLoading: false,
+    };
+  }, [roleFilter]);
 
   const approveAccount = (userId) => {
     Meteor.call('approveManager', userId, (error) => {
@@ -39,70 +52,80 @@ const AdminDashboard = () => {
     });
   };
 
+  const toggleRoleFilter = () => {
+    const newFilter = roleFilter === 'manager' ? 'user' : 'manager';
+    console.log('Current role filter:', roleFilter, 'New role filter:', newFilter);
+    setRoleFilter(newFilter);
+  };
+
   return (
     <Container id="dashboard-page">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Row className="align-items-center text-center mb-5">
-            <Col>
-              <div className="text-background">
-                <h1 className="high-contrast-text text-shadow">Admin Dashboard</h1>
-              </div>
-            </Col>
-          </Row>
+      {/* Loading indicator for any async operation */}
+      {(isLoadingApproval || isLoadingAccounts) && <div>Loading...</div>}
 
-          {/* Accounts Awaiting Approval Section */}
-          <Row className="mb-4">
-            <Col>
-              <h2>Accounts Awaiting Approval</h2>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Account Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {accountsAwaitingApproval.map((user, index) => (
-                    <tr key={user._id}>
-                      <td>{index + 1}</td>
-                      <td>{user.emails[0].address}</td>
-                      <td>
-                        <Button variant="success" size="sm" onClick={() => approveAccount(user._id)}>Approve</Button>{' '}
-                        <Button variant="danger" size="sm" onClick={() => rejectAccount(user._id)}>Reject</Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
+      {/* Accounts Awaiting Approval Section */}
+      <Row className="align-items-center text-center mb-5">
+        <Col>
+          <h2>Accounts Awaiting Approval</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Account Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {accountsAwaitingApproval.map((user, index) => (
+                <tr key={user._id}>
+                  <td>{index + 1}</td>
+                  <td>{user.username}</td>
+                  <td>{user.emails[0].address}</td>
+                  <td>
+                    <Button variant="success" size="sm" onClick={() => approveAccount(user._id)}>Approve</Button>
+                    <Button variant="danger" size="sm" onClick={() => rejectAccount(user._id)}>Reject</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
 
-          {/* Manage Accounts Section */}
-          <Row>
-            <Col md={4} lg={4} className="mb-3">
-              <Card className="dashboard-card">
-                <Card.Body>
-                  <Card.Title>Manage Accounts</Card.Title>
-                  <div className="d-flex justify-content-start">
-                    <Button as={NavLink} to="/user-accounts" variant="info" className="me-2">
-                      User Accounts
-                    </Button>
-                    <Button as={NavLink} to="/manager-accounts" variant="info">
-                      Manager Accounts
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </>
-      )}
+      {/* Toggle and Accounts Table Section */}
+      <Row className="mb-4">
+        <Col className="text-center">
+          <Button onClick={toggleRoleFilter}>Show {roleFilter === 'manager' ? 'User' : 'Manager'} Accounts</Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h2>{roleFilter.charAt(0).toUpperCase() + roleFilter.slice(1)} Accounts</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Account Name</th>
+                <th>Email</th>
+                <td>Role</td>
+              </tr>
+            </thead>
+            <tbody>
+              {accounts.map((user, index) => (
+                <tr key={user._id}>
+                  <td>{index + 1}</td>
+                  <td>{user.username}</td>
+                  <td>{user.emails[0].address}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
     </Container>
   );
 };
+
 export default AdminDashboard;

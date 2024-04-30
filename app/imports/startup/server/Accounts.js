@@ -52,23 +52,27 @@ Accounts.validateLoginAttempt((attempt) => {
 
 // meteor methods to create accounts with roles, signup page calls this method
 Meteor.methods({
-  'createUserWithRole'({ email, password, role }) {
+  createUserWithRole({ email, password, role, teamId }) {
     const userId = Accounts.createUser({ email, username: email, password });
-
-    if (role === 'manager') {
-      // Add approvalStatus directly to the user document for managers
-      Meteor.users.update(userId, {
-        $set: {
-          approvalStatus: 'pending',
-          role: role,
-        },
-      });
-    } else {
-      // Handle other roles that don't require approval
-      Roles.addUsersToRoles(userId, role);
+    if (!userId) {
+      throw new Meteor.Error('user-creation-failed', 'Failed to create user');
     }
 
-    return userId;
+    // Check and create role if it does not exist
+    Roles.createRole(role, { unlessExists: true });
+    if (role === 'user') {
+      Roles.addUsersToRoles(userId, 'user');
+      Meteor.users.update(userId, { $set: { role } });
+    }
+    // If the role is 'manager', mark the account as pending approval
+    if (role === 'manager') {
+      Meteor.users.update(userId, { $set: { approvalStatus: 'pending', role } });
+    }
+    Meteor.users.update(userId, { $set: { teamId } });
+    console.log(Roles.getRolesForUser(userId));
+
+    return userId; // This ID will be used for further actions on the client-side
+
   },
   // eslint-disable-next-line meteor/audit-argument-checks
   'approveManager'(userId) {

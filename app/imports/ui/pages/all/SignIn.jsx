@@ -27,6 +27,10 @@ const SignIn = () => {
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         setError(err.reason || 'Login failed. Please try again.');
+      // if user is not approved, don't allow login
+      } else if (Meteor.user().approvalStatus === 'pending') {
+        setError('Your account is pending approval. Please wait for an admin to approve your account.');
+        Meteor.logout();
       } else {
         // Call the method to get roles after successful login
         Meteor.call('getUserRoles', (errr, roles) => {

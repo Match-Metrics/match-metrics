@@ -6,12 +6,22 @@ import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
+import { useTracker } from 'meteor/react-meteor-data';
+import { Teams } from '../../../api/team/Team';
 
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToRef] = useState(false);
   const [redirectPath, setRedirectPath] = useState('');
+
+  const { teams } = useTracker(() => {
+    const handler = Meteor.subscribe('allTeams');
+    return {
+      teams: handler.ready() ? Teams.collection.find({}, { sort: { name: 1 } }).fetch() : [],
+    };
+  }, []);
+  console.log(teams);
+  const teamOptions = teams.map(team => ({ label: team.name, value: team._id }));
 
   const schema = new SimpleSchema({
     email: String,
@@ -20,14 +30,19 @@ const SignUp = ({ location }) => {
       type: String,
       allowedValues: ['user', 'manager'],
     },
+    teamId: {
+      type: String,
+      optional: true, // Make optional or required based on your logic
+      allowedValues: teamOptions.map(option => option.value),
+    },
   });
 
   const bridge = new SimpleSchema2Bridge(schema);
 
   const submit = (doc) => {
-    const { email, password, role } = doc;
+    const { email, password, role, teamId } = doc;
 
-    Meteor.call('createUserWithRole', { email, password, role }, (err, userId) => {
+    Meteor.call('createUserWithRole', { email, password, role, teamId }, (err, userId) => {
       if (err) {
         setError(err.reason);
       } else {
@@ -39,14 +54,14 @@ const SignUp = ({ location }) => {
           setRedirectPath('/pending-approval');
           setRedirectToRef(true);
         } else {
-          // Other roles (e.g., 'user') proceed with login
-          Roles.addUsersToRoles(userId, role);
+          // Attempt to log in the user
           Meteor.loginWithPassword(email, password, (loginError) => {
             if (loginError) {
               setError(loginError.reason);
             } else {
               // Direct users to the user dashboard upon successful login
-              setRedirectPath('/user-dashboard');
+              const dashboardPath = '/user-dashboard';
+              setRedirectPath(dashboardPath);
               setRedirectToRef(true);
             }
           });
@@ -65,12 +80,13 @@ const SignUp = ({ location }) => {
       <Row className="justify-content-center">
         <Col xs={12} sm={10} md={8} lg={6} xl={4}>
           <h2 className="text-center mb-4">Register your account</h2>
-          <AutoForm schema={bridge} onSubmit={data => submit(data)}>
+          <AutoForm schema={bridge} onSubmit={submit}>
             <Card>
               <Card.Body>
                 <SelectField name="role" options={[{ label: 'User', value: 'user' }, { label: 'Manager', value: 'manager' }]} />
                 <TextField name="email" placeholder="E-mail address" />
                 <TextField name="password" placeholder="Password" type="password" />
+                <SelectField name="teamId" options={teamOptions} placeholder="Select your team" />
                 <ErrorsField />
                 <SubmitField />
               </Card.Body>

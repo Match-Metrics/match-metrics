@@ -46,3 +46,38 @@ Meteor.publish('accountsAwaitingApproval', function () {
   return this.ready();
 
 });
+
+// eslint-disable-next-line meteor/audit-argument-checks
+Meteor.publish('accountsByRole', function (role) {
+  if (!this.userId || !Roles.userIsInRole(this.userId, 'admin')) {
+    return this.ready();
+  }
+
+  return Meteor.users.find({ role: role }, {
+    fields: { emails: 1, username: 1, role: 1 },
+  });
+});
+
+Meteor.publish('allAccounts', function () {
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  return Meteor.users.find({}, {
+    fields: { emails: 1, username: 1, role: 1 },
+  });
+});
+
+// all teams
+Meteor.publish('allTeams', function () {
+  return Teams.collection.find();
+});
+
+Meteor.publish('userTeam', function () {
+  if (!this.userId) return this.ready();
+
+  const user = Meteor.users.findOne(this.userId, { fields: { teamId: 1 } });
+  if (!user.teamId) return this.ready();
+
+  return Teams.collection.find({ _id: user.teamId });
+});
