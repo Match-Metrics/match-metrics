@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { Teams } from '../../api/team/Team';
 
 /* eslint-disable no-console */
 
@@ -52,7 +53,7 @@ Accounts.validateLoginAttempt((attempt) => {
 
 // meteor methods to create accounts with roles, signup page calls this method
 Meteor.methods({
-  createUserWithRole({ email, password, role, teamId }) {
+  createUserWithRole({ email, firstName, lastName, password, role, teamId }) {
     const userId = Accounts.createUser({ email, username: email, password });
     if (!userId) {
       throw new Meteor.Error('user-creation-failed', 'Failed to create user');
@@ -68,7 +69,7 @@ Meteor.methods({
     if (role === 'manager') {
       Meteor.users.update(userId, { $set: { approvalStatus: 'pending', role } });
     }
-    Meteor.users.update(userId, { $set: { teamId } });
+    Meteor.users.update(userId, { $set: { firstName: firstName, lastName: lastName, teamId: teamId } });
     console.log(Roles.getRolesForUser(userId));
 
     return userId; // This ID will be used for further actions on the client-side
@@ -98,5 +99,39 @@ Meteor.methods({
     }
 
     return Roles.getRolesForUser(this.userId);
+  },
+  // eslint-disable-next-line meteor/audit-argument-checks
+  changeUserTeam(teamId) {
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in to update your team.');
+    }
+
+    // Optional: Check if the team exists
+    const teamExists = Teams.collection.findOne({ _id: teamId });
+    if (!teamExists) {
+      throw new Meteor.Error('invalid-team', 'The specified team does not exist.');
+    }
+
+    // Optional: Add additional checks for whether the user can join this team
+
+    Meteor.users.update(this.userId, {
+      $set: {
+        teamId: teamId,
+      },
+    });
+  },
+  // eslint-disable-next-line meteor/audit-argument-checks
+  changeUserPassword(newPassword) {
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in to change your password.');
+    }
+
+    if (newPassword.length < 6) {
+      throw new Meteor.Error('invalid-password', 'Password must be at least 6 characters long.');
+    }
+
+    Accounts.setPassword(this.userId, newPassword, { logout: false });
   },
 });

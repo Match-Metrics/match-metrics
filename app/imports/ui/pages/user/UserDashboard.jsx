@@ -13,9 +13,9 @@ const UserDashboard = () => {
     if (!handler.ready()) {
       return { ...noDataAvailable, isLoading: true };
     }
-
+    const user = Meteor.user();
     // eslint-disable-next-line no-shadow
-    const team = Teams.collection.findOne();
+    const team = Teams.collection.findOne({ _id: user?.teamId });
     return { team, isLoading: false };
   }, []);
 

@@ -24,6 +24,9 @@ const SignUp = ({ location }) => {
   const teamOptions = teams.map(team => ({ label: team.name, value: team._id }));
 
   const schema = new SimpleSchema({
+    // first and last name
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
     role: {
@@ -40,9 +43,9 @@ const SignUp = ({ location }) => {
   const bridge = new SimpleSchema2Bridge(schema);
 
   const submit = (doc) => {
-    const { email, password, role, teamId } = doc;
+    const { email, firstName, lastName, password, role, teamId } = doc;
 
-    Meteor.call('createUserWithRole', { email, password, role, teamId }, (err, userId) => {
+    Meteor.call('createUserWithRole', { email, firstName, lastName, password, role, teamId }, (err, userId) => {
       if (err) {
         setError(err.reason);
       } else {
@@ -84,6 +87,8 @@ const SignUp = ({ location }) => {
             <Card>
               <Card.Body>
                 <SelectField name="role" options={[{ label: 'User', value: 'user' }, { label: 'Manager', value: 'manager' }]} />
+                <TextField name="firstName" placeholder="First name" />
+                <TextField name="lastName" placeholder="Last name" />
                 <TextField name="email" placeholder="E-mail address" />
                 <TextField name="password" placeholder="Password" type="password" />
                 <SelectField name="teamId" options={teamOptions} placeholder="Select your team" />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Col, Container, Row, Button, Table } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { Teams } from '../../../api/team/Team';
 
 const AdminDashboard = () => {
   const [roleFilter, setRoleFilter] = useState('user'); // Default to 'manager'
@@ -20,14 +21,23 @@ const AdminDashboard = () => {
   }, []);
 
   const { accounts, isLoadingAccounts } = useTracker(() => {
-    const handler = Meteor.subscribe('accountsByRole', roleFilter);
+    const accountsHandler = Meteor.subscribe('accountsByRole', roleFilter);
+    const teamsHandler = Meteor.subscribe(Teams.userPublicationName);
 
-    if (!handler.ready()) {
+    if (!accountsHandler.ready() || !teamsHandler.ready()) {
       return { accounts: [], isLoading: true };
     }
 
+    const users = Meteor.users.find({ role: roleFilter }).fetch();
+    const teamIds = users.map(user => user.teamId);
+    const teams = Teams.collection.find({ _id: { $in: teamIds } }).fetch();
+    const teamsMap = teams.reduce((acc, team) => ({ ...acc, [team._id]: team.name }), {});
+
     return {
-      accounts: Meteor.users.find({ role: roleFilter }).fetch(),
+      accounts: users.map(user => ({
+        ...user,
+        teamName: teamsMap[user.teamId] || 'No team',
+      })),
       isLoading: false,
     };
   }, [roleFilter]);
@@ -109,6 +119,9 @@ const AdminDashboard = () => {
                 <th>Account Name</th>
                 <th>Email</th>
                 <td>Role</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Team</td>
               </tr>
             </thead>
             <tbody>
@@ -118,6 +131,9 @@ const AdminDashboard = () => {
                   <td>{user.username}</td>
                   <td>{user.emails[0].address}</td>
                   <td>{user.role}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.teamName}</td>
                 </tr>
               ))}
             </tbody>

@@ -54,7 +54,7 @@ Meteor.publish('accountsByRole', function (role) {
   }
 
   return Meteor.users.find({ role: role }, {
-    fields: { emails: 1, username: 1, role: 1 },
+    fields: { emails: 1, username: 1, role: 1, firstName: 1, lastName: 1, teamId: 1 },
   });
 });
 
@@ -76,8 +76,21 @@ Meteor.publish('allTeams', function () {
 Meteor.publish('userTeam', function () {
   if (!this.userId) return this.ready();
 
-  const user = Meteor.users.findOne(this.userId, { fields: { teamId: 1 } });
-  if (!user.teamId) return this.ready();
+  const user = Meteor.users.findOne(this.userId);
+  if (user && user.teamId) {
+    return [
+      Meteor.users.find({ _id: this.userId }, { fields: { teamId: 1 } }),
+      Teams.collection.find({ _id: user.teamId }),
+    ];
+  }
 
-  return Teams.collection.find({ _id: user.teamId });
+  return this.ready();
+});
+
+Meteor.publish('playersByTeam', function (teamName) {
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  return Players.collection.find({ team: teamName });
 });
