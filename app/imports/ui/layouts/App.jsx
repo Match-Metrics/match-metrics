@@ -92,7 +92,7 @@ const App = () => {
             <Route path="/editplayer/:_id" component={EditPlayer} element={<ProtectedRoute><EditPlayer /></ProtectedRoute>} />
           ) : ''}
           {/* Admin Login required */}
-          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+          {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
             <Route path="/team-management" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (

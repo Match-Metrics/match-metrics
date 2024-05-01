@@ -35,7 +35,7 @@ const StatsTable = ({ players }) => {
       <td>{players.position}</td>
       <td>{players.goals}</td>
       <td>{players.assists}</td>
-      {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+      {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
         <td>
           <td>
             <Button
@@ -47,7 +47,7 @@ const StatsTable = ({ players }) => {
           </td>
         </td>
       ) : ''}
-      {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+      {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
         <td>
           <div className="justify-content-center">
             <Button

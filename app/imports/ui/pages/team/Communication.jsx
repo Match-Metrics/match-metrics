@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 /* Enhanced landing page component */
 const Communication = () => (
@@ -9,6 +9,7 @@ const Communication = () => (
       <Col className="section-padding">
         <div className="text-background">
           <h1 className="high-contrast-text text-shadow">Communication</h1>
+          <p>Set up a preferred communication method between you and the rest of your team!</p>
         </div>
       </Col>
     </Row>

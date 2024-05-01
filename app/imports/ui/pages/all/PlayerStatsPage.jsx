@@ -3,8 +3,9 @@ import { Meteor } from 'meteor/meteor';
 import { useNavigate } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Container, Row, Table, Button } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { Players } from '../../../api/player/Player';
+import { Teams } from '../../../api/team/Team';
 import StatsTable from '../../components/StatsTable';
 
 // Add in player number to Player later
@@ -22,13 +23,20 @@ const PlayerStatsPage = () => {
     return playerItems;
   });
 
+  const teams = useTracker(() => {
+    const subscription = Meteor.subscribe(Teams.userPublicationName);
+    subscription.ready();
+    const teamItems = Teams.collection.find({}).fetch();
+    return teamItems;
+  });
+
   return (
     <Container className="stats-page">
       <Row style={{ paddingBottom: 15 }}>
         <h3 className="text-center">Player Stats</h3>
       </Row>
       <div className="row justify-content-center">
-        {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+        {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
           <Button
             size="sm"
             variant="outline-primary"
@@ -56,10 +64,10 @@ const PlayerStatsPage = () => {
               <th width={2}>Position(s)</th>
               <th width={2}>Goals</th>
               <th width={2}>Assists</th>
-              {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+              {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
                 <th width={2}>Edit Player Info</th>
               ) : ''}
-              {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+              {Roles.userIsInRole(Meteor.userId(), ['manager', 'admin']) ? (
                 <th width={2}>Remove Player</th>
               ) : ''}
             </tr>

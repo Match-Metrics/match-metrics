@@ -20,8 +20,11 @@ const AddPlayer = () => {
     setImageFile(file);
   };
 
-  const handleAddEvent = () => {
+  const handleAddEvent1 = () => {
     navigate('/stats');
+  };
+  const handleAddEvent2 = () => {
+    navigate('/team-management');
   };
 
   const submit = (data) => {
@@ -67,7 +70,8 @@ const AddPlayer = () => {
           <Col xs={5}>
             <Col className="text-center"><h2>Add Player</h2></Col>
             <Col className="text-center">
-              <Button variant="link" size="sm" onClick={handleAddEvent}>Back to Stats</Button>
+              <Button variant="link" size="sm" onClick={handleAddEvent1}>Back to Stats</Button>
+              <Button variant="link" size="sm" onClick={handleAddEvent2}>Add Multiple Players from PDF</Button>
             </Col>
             <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data)}>
               <Card style={{ backgroundColor: 'white', border: 'none' }}>
