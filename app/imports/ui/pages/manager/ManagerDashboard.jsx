@@ -33,7 +33,7 @@ const ManagerDashboard = () => (
             <Card.Text>
               View and Manage your roster.
             </Card.Text>
-            <Button as={NavLink} to="/team-management" variant="primary" block>
+            <Button as={NavLink} to="/stats" variant="primary" block>
               Manage
             </Button>
           </Card.Body>

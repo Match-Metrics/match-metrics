@@ -5,6 +5,42 @@
   ],
 
   "defaultPlayers": [
+    {
+      "owner": "Owner 1",
+      "createdAt": "2024-02-01T08:00:00Z",
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "2024-02-01T08:00:00Z",
+      "position": "Unknown",
+      "team": "Team 1",
+      "skills": "Skill 1",
+      "goals": 3,
+      "assists": 6
+    },
+    {
+      "owner": "Owner 1",
+      "createdAt": "2024-02-01T08:00:00Z",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "dateOfBirth": "2024-02-01T08:00:00Z",
+      "position": "Unknown",
+      "team": "Team 1",
+      "skills": "Skill 2",
+      "goals": 7,
+      "assists": 3
+    },
+    {
+      "owner": "Owner 1",
+      "createdAt": "2024-02-01T08:00:00Z",
+      "firstName": "Bob",
+      "lastName": "Cat",
+      "dateOfBirth": "2024-02-01T08:00:00Z",
+      "position": "Unknown",
+      "team": "Team 1",
+      "skills": "Skill 5",
+      "goals": 9,
+      "assists": 12
+    }
   ],
 
   "defaultVideos": [

@@ -20,8 +20,11 @@ const AddPlayer = () => {
     setImageFile(file);
   };
 
-  const handleAddEvent = () => {
+  const handleAddEvent1 = () => {
     navigate('/stats');
+  };
+  const handleAddEvent2 = () => {
+    navigate('/team-management');
   };
 
   const submit = (data) => {
@@ -36,6 +39,7 @@ const AddPlayer = () => {
           if (fRef) {
             fRef.reset();
           }
+          navigate('/stats'); // Go to stats page
         }
       });
     };
@@ -66,7 +70,8 @@ const AddPlayer = () => {
           <Col xs={5}>
             <Col className="text-center"><h2>Add Player</h2></Col>
             <Col className="text-center">
-              <Button variant="link" size="sm" onClick={handleAddEvent}>Back to Stats</Button>
+              <Button variant="link" size="sm" onClick={handleAddEvent1}>Back to Stats</Button>
+              <Button variant="link" size="sm" onClick={handleAddEvent2}>Add Multiple Players from PDF</Button>
             </Col>
             <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data)}>
               <Card style={{ backgroundColor: 'white', border: 'none' }}>
@@ -76,10 +81,12 @@ const AddPlayer = () => {
                   <DateField inputClassName="border-dark" name="dateOfBirth" />
                   <SelectField inputClassName="border-dark" name="position" />
                   <TextField inputClassName="border-dark" name="team" />
-                  <NumField inputClassName="border-dark" name="height" />
-                  <NumField inputClassName="border-dark" name="weight" />
+                  <NumField inputClassName="border-dark" name="height" label="Height (in)" />
+                  <NumField inputClassName="border-dark" name="weight" label="Weight (lbs)" />
                   <TextField inputClassName="border-dark" name="skills" />
                   <TextField inputClassName="border-dark" name="achievements" />
+                  <TextField inputClassName="border-dark" name="goals" />
+                  <TextField inputClassName="border-dark" name="assists" />
                   <div className="mb-3">
                     <FileField name="picture" onChange={handleImageChange} />
                   </div>

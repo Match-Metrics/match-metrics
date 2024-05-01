@@ -1,47 +1,23 @@
-import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import { Container } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row } from 'react-bootstrap';
 
 const CalendarPage = () => {
-  const calendarRef = useRef(null);
-  const navigate = useNavigate();
-
-  const handleAddEvent = () => {
-    navigate('/addevent');
-  };
-
   return (
-    <div>
-      <Container id="calendar-page">
-        <FullCalendar
-          ref={calendarRef}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, googleCalendarPlugin]}
-          googleCalendarApiKey="API-KEY-HERE"
-          intialView="dayGridMonth"
-          height="90vh"
-          selectable="true"
-          editable="true"
-          navLinks="true"
-          events={{
-            googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com',
-          }}
-          headerToolbar={{
-            start: 'addEventButton',
-            center: 'title',
-            end: 'today dayGridMonth,timeGridWeek,timeGridDay prev,next',
-          }}
-          customButtons={{
-            addEventButton: {
-              text: 'Add event',
-              click: handleAddEvent,
-            },
-          }}
-        />
+    <div
+      className="justify-content-center align-items-center"
+      style={{ paddingTop: 20, paddingBottom: 30 }}
+    >
+      <h1 className="text-center">Team Calendar</h1>
+      <Container>
+        <Row>
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Pacific%2FHonolulu&bgcolor=%23ffffff&src=YzU3MTdjNDBhNzM3MTA3OTIyMTIzMzYxNjJkMDYyMWEyNzZjZjk5NzZjYThiNjVhOWU5YmZhMDhjZjhlNWYwYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NjAyMzIwNWM2NzBkOTI3YzE5YTQ3Zjk0MThkZWQ4M2QyYzlmZjcwOWQ0ODk2MDQ3ZjQ0YzJiYjUxZTRiYjljN0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23EF6C00&color=%233F51B5"
+            width="800"
+            height="600"
+            frameBorder="0"
+            scrolling="no"
+          />
+        </Row>
       </Container>
     </div>
   );
